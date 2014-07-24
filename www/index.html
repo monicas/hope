@@ -134,26 +134,27 @@
       <label>Ringtone:</label>
       <input type="text" class="form-control" id="newAlarmRingtone" placeholder="Choose ringtones here" />
     </div>
-    <div class="app">
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-        <input name="" id="numberTxt" placeholder="Enter mobile number" value="" type="tel" />
-<br/>
-<textarea name="" id="messageTxt" placeholder="Enter message"></textarea>
-<br/>
-<input id="btnDefaultSMS" type="button" value="Send SMS" />
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <input name="" id="numberTxt" placeholder="Enter mobile number" value="" type="tel" />
+    <br/>
+    <textarea name="" id="messageTxt" placeholder="Enter message"></textarea>
+    <br/>
+    <button class="btn btn-default" id="btnDefaultSMS">Send</button>
 
     <button class="btn btn-default" id="addAlarm" onclick="clockApp.addalarm(), clockApp.showView('clockList')">Save</button>
     <button class="btn btn-default" id="cancelAlarm" onclick="clockApp.showView('clockList')">Cancel</button>
+    <script>
+    $("#btnDefaultSMS").click(function(){
+    alert("click in index.html middle");
+    var number = $("#numberTxt").val();
+    var message = $("#messageTxt").val();
+    var intent = ""; //leave empty for sending sms using default intent
+    var success = function () { alert('Message sent successfully'); };
+    var error = function (e) { alert('Message Failed:' + e); };
+    sms.send(number, message, intent, success, error);
+  });
+    </script>
   </div>
 
 
@@ -192,19 +193,6 @@
 
   <script>
      $("[name='try']").bootstrapSwitch();
-  //console.log(clockApp.getAlarms+"try!!!!!!!!!!!");
-  // for (i = 0; i < clockApp.getAlarms().length; i++)
-  // {
-  //   alarm = clockApp.getAlarms()[i];
-  //   console.log("try!");
-  //   console.log(alarm.time+"try!!!!!!!!!!!!++++++");
-  //   $("[name='switchonoff"+alarm.id+"']").bootstrapSwitch();
-  // }
-  // console.log($("[name='try']"));
-  //  $("[name='switchonoff']").bootstrapSwitch();
-  //  console.log($("[name='switchonoff']"));
-  // this is the code that actually starts the JavaScript application!!
-  // when the document has been fully loaded, all the clockApp.start() method
   $(document).ready(clockApp.start());
 
   </script>
