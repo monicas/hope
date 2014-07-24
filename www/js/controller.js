@@ -37,23 +37,6 @@ var clockApp = (function($) {
 
     }
 
-
-   /* 
-    function matchSeconds(alarms){
-        var currentHour = new Date().getHours();
-        var currentMinutes = new Date().getMinutes();
-        for(i=0; i<alarms.length; i++){
-            if (alarms[i].time.getHours() == currentHour){
-                if(alarms[i].time.getMinutes() == currentMinutes){
-                    console.log("this is executing~~~~~")
-                    myAudio=document.getElementById('audio2');
-                    myAudio.addEventListener('canplaythrough', function() {
-                    this.play();
-                    });
-                }
-            }
-        }
-    }*/
   
     function handleDeletealarm(element) {
         console.log("deleting alarm");
@@ -107,6 +90,39 @@ var clockApp = (function($) {
         refreshView();
     }
     
+  /* function matchSeconds(element){
+        var alarmId = element.getAttribute("sid");
+        var currentHour = new Date().getHours();
+        var currentMinutes = new Date().getMinutes();
+        var currentTime = ""+currentHour+":"+currentMinutes ;
+
+        for ()
+        alarm = myList.getElement(alarmId);
+        if ((alarm.status = true) && (alarm.time = currentTime)){
+                    console.log("this is executing~~~~~");
+                    myAudio=document.getElementById('audio2');
+                    myAudio.addEventListener('canplaythrough', function() {
+                    console.log("something");
+                    this.play();
+                    });
+        } else {console.log("it sucks")}
+    }*/
+        
+    function playAudio(url) {
+    // Play the audio file at url
+    var my_media = new Media(url,
+        // success callback
+        function() {
+            console.log("playAudio():Audio Success");
+        },
+        // error callback
+        function(err) {
+            console.log("playAudio():Audio Error: "+err);
+        }
+    );
+    my_media.play();
+}
+
     function editDes(element){
         var alarmId = element.getAttribute("sid");
         var alarmVal = element.value;
@@ -174,7 +190,8 @@ var clockApp = (function($) {
         editTime:editTime,
         editstatus: editstatus,
         editDes: editDes,
-        showView: showView
+        showView: showView,
+        playAudio: playAudio
     }
 
     return (clockApp);

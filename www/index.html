@@ -4,15 +4,15 @@
   <title>Smart clock</title>
   <link href="css/bootstrap.css" rel="stylesheet" />
   <link href="css/bootstrap-theme.css" rel="stylesheet" />
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
   <script src="js/jquery-2.1.1.min.js"></script>
   <script src="js/model.js"></script>
   <script src="js/view.js"></script>
   <script src="js/controller.js"></script>
-  <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-  <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css">
-  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src="//code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css">
+  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
   <meta charset='utf-8' />
   <meta name="format-detection" content="telephone=no" />
   <meta name="msapplication-tap-highlight" content="no" />
@@ -101,7 +101,7 @@
         </form>
       </li>
     </ul>
-    <button onclick="playAudio('http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3');">
+    <button onclick="clockApp.playAudio('http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3');">
     <span>Play</span></button>
   </div>
 
@@ -192,7 +192,7 @@
 </body>
 
   <script>
-     $("[name='try']").bootstrapSwitch();
+   //  $("[name='try']").bootstrapSwitch();
   $(document).ready(clockApp.start());
 
   </script>
@@ -210,7 +210,6 @@
           <ul class="nav nav-tabs" id="bottom-tabs" data-iconpos="bottom">
             <li><a  data-icon="home" onclick="clockApp.showView('welcome')"  icon-size="auto" toggle="tab"></a></li>
             <li><a data-icon="bullets" onclick="clockApp.showView('clockList')" icon-size="auto" toggle="tab"></a></li>
-            <li><a data-icon="calendar" onclick="clockApp.showView('calendar')" icon-size="auto" toggle="tab"></a></li>
             <li><a data-icon="user"  onclick="clockApp.showView('contacts')" icon-size="auto" toggle="tab"></a></li>
              <li><a data-icon="info" onclick="clockApp.showView('about')" icon-size="auto"></a></li>
           </ul> 
@@ -222,61 +221,10 @@
         </script>
 
 
-<script>
-     // document.addEventListener("deviceready", onDeviceReady, false);
-
-     //    // device APIs are available
-     //    //
-     //    function onDeviceReady() {
-     //        playAudio("cocoa.mp3");
-     //    }
-
-     //    // Audio player
-     //    //
-     //    var my_media = null;
-     //    var mediaTimer = null;
-
-     //    // Play audio
-     //    //
-     //    function playAudio(src) {
-     //        var now = new Date;
-     //        var hour = now.getHours(); console.log('hour' + hour);
-     //        var minutes = now.getMinutes(); console.log("minute" + minutes);
-     //        var alarmHour = ;
-     //        var alarmMinute = ;
-     //        if (isNaN(alarmHour) || alarmHour < 0 || alarmHour > 23) {
-     //           throw new Error('invalid hour: ' + alarmHour);
-     //        }
- 
-     //        if (isNaN(alarmMinute) || alarmMinute < 0 || alarmMinute > 59) {
-     //           throw new Error('invalid minute: ' + alarmMinute);
-     //        }
-
-
-     //        // Create Media object from src
-     //        my_media = new Media(src, onSuccess, onError);
-     //   //     my_media.play();}
-     //        // Play audio
-     //       if (hour == alarmHour && minutes == alarmMinute) {
-     //         console.log('works');
-     //         my_media.play();
-     //        }}
-
-            
-     //    // onSuccess Callback
-     //    //
-     //    function onSuccess() {
-     //        console.log("playAudio():Audio Success");
-     //    }
-
-     //    // onError Callback
-     //    //
-     //    function onError(error) {
-     //        alert('code: '    + error.code    + '\n' +
-     //              'message: ' + error.message + '\n');
-     //    }
-  </script>
-
-
+<audio id="audio2" 
+       preload="auto" 
+       src="http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3" >
+    
+</audio>
 
 </html>
