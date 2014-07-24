@@ -38,18 +38,22 @@ var clockApp = (function($) {
     }
 
 
-        //             navigator.speechrecognizer.recognize(successCallback, failCallback, 1, "Cordova Speech Recognizer Plugin");
-        // function successCallback(results){
-        //     console.log("Results: " + results);
-        //     alert("Results: "+results);
-        // }
-
-        // function failCallback(error){
-
-        //     console.log("Error: " + error);
-        // }
-
-
+   /* 
+    function matchSeconds(alarms){
+        var currentHour = new Date().getHours();
+        var currentMinutes = new Date().getMinutes();
+        for(i=0; i<alarms.length; i++){
+            if (alarms[i].time.getHours() == currentHour){
+                if(alarms[i].time.getMinutes() == currentMinutes){
+                    console.log("this is executing~~~~~")
+                    myAudio=document.getElementById('audio2');
+                    myAudio.addEventListener('canplaythrough', function() {
+                    this.play();
+                    });
+                }
+            }
+        }
+    }*/
   
     function handleDeletealarm(element) {
         console.log("deleting alarm");
@@ -61,11 +65,14 @@ var clockApp = (function($) {
 
     function addalarm() {
 
-
+    var newTime = document.getElementById('newAlarmTime').value;
+    var newDescription = document.getElementById('newAlarmDescription').value;
+    var newRingTone = document.getElementById('newAlarmRingtone').value;
         myList.addElement({
-            time: "",
+            time: newTime,
             status: true,
-            description: ""
+            description: newDescription,
+            ringtone: newRingTone
         });
 
     }
