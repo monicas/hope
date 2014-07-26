@@ -27,6 +27,9 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        document.addEventListener('deviceready', function () {
+    // window.plugin.notification.local is now available
+}, false);
     },
     // deviceready Event Handler
     //

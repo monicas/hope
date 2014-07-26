@@ -21,6 +21,11 @@ var clockApp = (function($) {
       $('.view').hide().filter('#' + selected + '-view').show();
     };
 
+
+    function test() {
+        window.plugin.notification.local.add({ sound: '/www/audio/beep.mp3' });
+    }
+
     
 
     function speak(){
@@ -57,7 +62,6 @@ var clockApp = (function($) {
         myList.deleteElement(element.getAttribute("sid"));
 
     }
-
 
     function addalarm() {
 
