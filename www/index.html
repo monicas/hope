@@ -2,12 +2,22 @@
 <html>
 <head>
   <title>Smart clock</title>
+<<<<<<< HEAD
   <link href="css/bootstrap.css" rel="stylesheet" />
   <link href="css/bootstrap-theme.css" rel="stylesheet" />
   <link href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" rel="stylesheet" />
   <link href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" rel="stylesheet" />
   <link href="css/style.css" rel="stylesheet" />
   <link href="css/index.css" rel="stylesheet" type="text/css" />
+=======
+  <link href="css/bootstrap.css" rel="stylesheet"/>
+  <link href="css/bootstrap-theme.css" rel="stylesheet"/>
+  <link href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
+  <link href='css/fullcalendar.css' rel='stylesheet' />
+  <link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
+  <link href='css/style.css' rel='stylesheet'/>
+>>>>>>> 0a8f8e49f223bc951e7464e0bd61dff295a00649
   <script src="js/jquery-2.1.1.min.js"></script>
   <script src="js/local-notification.js" /></script>
   <script src="js/model.js"></script>
@@ -15,17 +25,25 @@
   <script src="js/cordova_plugins.js"></script>
   <script src="js/view.js"></script>
   <script src="js/controller.js"></script>
+<<<<<<< HEAD
   <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+=======
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+  <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css">
+>>>>>>> 0a8f8e49f223bc951e7464e0bd61dff295a00649
   <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
   <meta charset='utf-8' />
   <meta name="format-detection" content="telephone=no" />
   <meta name="msapplication-tap-highlight" content="no" />
-  <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
   <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
   <script src='js/moment.min.js'></script>
   <script src='js/jquery.min.js'></script>
   <script src='js/jquery-ui.custom.min.js'></script>
+<<<<<<< HEAD
 
 
 
@@ -49,21 +67,53 @@
     }
   </style>
 
+=======
+  <script src='js/fullcalendar.min.js'></script>
+>>>>>>> 0a8f8e49f223bc951e7464e0bd61dff295a00649
 </head>
 
-
 <body>
-  <div data-role="header" style="overflow:hidden;" class="ui-body-b ui-body">
-    <span><a href="/"><img src="logo.jpg" alt="company logo" width="200" height="115"></a>  <!--taken from selfmadehero.com. Property of Wake Up Productions--> </span>
-    <span>Yo! Wake up!!</span>
+	<div data-role="header" style="overflow:hidden;" class="ui-body-b ui-body">
+		<span><a href="/"><img src="logo.jpg" alt="company logo" width="200" height="115"></a></span>
+		<span>Yo! Wake up!!</span>
       <a href="" data-icon="gear" class="ui-btn-right">Options</a>
       <a href="" data-icon="refresh" onclick="clockApp.reloadModel()" width="50" height="50" ></a>
       <a href="" data-icon="plus" onnclick="clockApp.showView('about')" width="50" height="50" ></a>
-  </div><!-- /header -->
+	</div>
 
-  <div class="container">
-    <div class="page-header">
+	<div class="container">
+	</div>
+	
+	<div class="page-header">
+    </div>
 
+  <div id="options">
+    <button onclick="clockApp.showView('clockList')">
+      <span>Clocks</span>
+    </button>
+    <button onclick="clockApp.showView('contacts')">
+      <span>Contacts</span>
+    </button>
+    <button onclick="clockApp.showView('calendar')">
+      <span>Calendar</span>
+    </button>
+    <button onclick="clockApp.showView('about')">
+      <span>About</span>
+    </button>
+    <button onclick="recognizeSpeech();">
+      <span>Speech</span>
+    </button>
+  </div>
+
+  <div data-role="footer" data-position="fixed" class="ui-body-b ui-body">
+    <div data-role="navbar" d>
+      <ul class="nav nav-tabs" id="bottom-tabs" data-iconpos="bottom">
+        <li><a  data-icon="home" onclick="clockApp.showView('welcome')"  icon-size="auto" toggle="tab"></a></li>
+        <li><a data-icon="bullets" onclick="clockApp.showView('clockList')" icon-size="auto" toggle="tab"></a></li>
+        <li><a data-icon="calendar" onclick="clockApp.showView('calendar')" icon-size="auto" toggle="tab"></a></li>
+        <li><a data-icon="user"  onclick="clockApp.showView('contacts')" icon-size="auto" toggle="tab"></a></li>
+        <li><a data-icon="info" onclick="clockApp.showView('about')" icon-size="auto"></a></li>
+      </ul> 
     </div>
   </div>
 
@@ -74,9 +124,8 @@
     </h1>
   </div>
 
-  <!--about page -->
-  <div id="about-view" class="view"> 
-    <ul data-role="listview" class="ui-listview-outer" data-inset="true">
+	<div id="about-view" class="view"> 
+		<ul data-role="listview" class="ui-listview-outer" data-inset="true">
       <li data-role="collapsible" data-iconpos="right" data-shadow="false" data-corners="false">
         <h2>Founders</h2>
         <ul data-role="listview" data-shadow="false" data-inset="true" data-corners="false">
@@ -108,7 +157,6 @@
     <span>Play</span></button>
   </div>
 
-  <!--contact's page information -->
   <div id="contacts-view" class="view">
     <h1>Contacts</h1>
     <ul data-role="listview" data-autodividers="true" data-inset="true">
@@ -126,17 +174,22 @@
 
 
   <div id="editAlarm-view" class="view">
+<<<<<<< HEAD
    
+=======
+    <p>editAlarm</p>
+  </div>
+>>>>>>> 0a8f8e49f223bc951e7464e0bd61dff295a00649
 
-    <!-- form to fill out -->
-    <div class="panel panel-info">
-      <label>Time:</label>
+  <div class="panel panel-info">
+    <label>Time:</label>
       <input type="time" class="form-control" id="newAlarmTime">
-      <label>Description:</label>
+    <label>Description:</label>
       <input type="text" class="form-control" id="newAlarmDescription" placeholder="Enter new alarms here" />
-      <label>Ringtone:</label>
+    <label>Ringtone:</label>
       <input type="text" class="form-control" id="newAlarmRingtone" placeholder="Choose ringtones here" />
     </div>
+<<<<<<< HEAD
 
     <script type="text/javascript" src="cordova.js"></script>
     <input name="" id="numberTxt" placeholder="Enter mobile number" value="" type="tel" />
@@ -161,19 +214,36 @@
   </div>
 
 
+=======
+    
+    <div class="app">
+      <div id="deviceready" class="blink">
+        <p class="event listening">Connecting to Device</p>
+        <p class="event received">Device is Ready</p>
+        <input name="" id="numberTxt" placeholder="Enter mobile number" value="" type="tel" />
+        <br>
+        <textarea name="" id="messageTxt" placeholder="Enter message"></textarea>
+        <br>
+        <input id="btnDefaultSMS" type="button" value="Send SMS" />
+        <button class="btn btn-default" id="addAlarm" onclick="clockApp.addalarm(), clockApp.showView('clockList')">Save</button>
+        <button class="btn btn-default" id="cancelAlarm" onclick="clockApp.showView('clockList')">Cancel</button>
+      </div>
+    </div>
+  
+  <div id="editReminder-view" class="view">
+    <p>editReminder</p>
+    <button class="btn btn-default" id="cancelReminder" onclick="clockApp.showView('clockList')">Cancel</button>
+  </div>
+>>>>>>> 0a8f8e49f223bc951e7464e0bd61dff295a00649
 
   <div id="clockList-view" class="view">
-<!--    <span><a href="refresh"><img src="refresh.png" onclick="clockApp.reloadModel()" width="50" height="50" align="left"></a></span>
-    <span><a href="add"><img src="add.png" onclick="clockApp.showView('about')" width="50" height="50" alight="right"></a></span>
-    <span><button id="plusBtn" class="btn btn-default" onclick="clockApp.showView('toggle')">+</button>
-  </span> --> 
-  <div>
     <form>
       <input type="button" data-role="none" value="+" onclick="clockApp.showView('editAlarm')">
       <input type="reset" data-role="none" value="Reload" onclick="clockApp.reloadModel()">
     </form>
   </div>
 
+<<<<<<< HEAD
   
 
       <table class="table table-striped">
@@ -203,78 +273,54 @@
     <button onclick="clockApp.test()">
         <span>Test</span></button>
 </div>
+=======
+  <div class="ui-widget-content ui-corner-individual" >
+    <div id="effect" class="ui-widget-content ui-corner-all">
+      <button class="btn btn-default" onclick="clockApp.showView('editAlarm')">Alarm</button>
+      <button class="btn btn-default" onclick="clockApp.showView('editReminder')">Reminder</button>
+      <button class="btn btn-default" id="cancel">Cancel</button>
+    </div>
+  </div>
 
-    <div data-role="footer" data-position="fixed" class="ui-body-b ui-body">
-        <div data-role="navbar" d>
-          <ul class="nav nav-tabs" id="bottom-tabs" data-iconpos="bottom">
-            <li><a  data-icon="home" onclick="clockApp.showView('welcome')"  icon-size="auto" toggle="tab"></a></li>
-            <li><a data-icon="bullets" onclick="clockApp.showView('clockList')" icon-size="auto" toggle="tab"></a></li>
-            <li><a data-icon="calendar" onclick="clockApp.showView('calendar')" icon-size="auto" toggle="tab"></a></li>
-            <li><a data-icon="user"  onclick="clockApp.showView('contacts')" icon-size="auto" toggle="tab"></a></li>
-             <li><a data-icon="info" onclick="clockApp.showView('about')" icon-size="auto"></a></li>
-          </ul> 
-        </div><!-- /navbar -->
-    </div><!-- /footer -->
- 
-        <script type="text/javascript">
-            clockApp.start();
-        </script>
+  <div id="table">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Status</th>
+          <th>Description</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody id="alarmTableBody"></tbody>
+    </table>
+  </div>
+
+>>>>>>> 0a8f8e49f223bc951e7464e0bd61dff295a00649
+
+  <div class="checkbox-inline">
+    <label><input id="showon" type="checkbox" name="try" onchange="clockApp.refreshView()" checked> Show "On" Alarms</label>
+  </div>
+</body>
 
 <script>
-     // document.addEventListener("deviceready", onDeviceReady, false);
+$(document).ready(clockApp.start());
+</script>
 
-     //    // device APIs are available
-     //    //
-     //    function onDeviceReady() {
-     //        playAudio("cocoa.mp3");
-     //    }
+<script type="text/javascript">
+clockApp.start();
+</script>
 
-     //    // Audio player
-     //    //
-     //    var my_media = null;
-     //    var mediaTimer = null;
+<script type="text/javascript">
+app.initialize();
+</script>
 
-     //    // Play audio
-     //    //
-     //    function playAudio(src) {
-     //        var now = new Date;
-     //        var hour = now.getHours(); console.log('hour' + hour);
-     //        var minutes = now.getMinutes(); console.log("minute" + minutes);
-     //        var alarmHour = ;
-     //        var alarmMinute = ;
-     //        if (isNaN(alarmHour) || alarmHour < 0 || alarmHour > 23) {
-     //           throw new Error('invalid hour: ' + alarmHour);
-     //        }
- 
-     //        if (isNaN(alarmMinute) || alarmMinute < 0 || alarmMinute > 59) {
-     //           throw new Error('invalid minute: ' + alarmMinute);
-     //        }
-
-
-     //        // Create Media object from src
-     //        my_media = new Media(src, onSuccess, onError);
-     //   //     my_media.play();}
-     //        // Play audio
-     //       if (hour == alarmHour && minutes == alarmMinute) {
-     //         console.log('works');
-     //         my_media.play();
-     //        }}
-
-            
-     //    // onSuccess Callback
-     //    //
-     //    function onSuccess() {
-     //        console.log("playAudio():Audio Success");
-     //    }
-
-     //    // onError Callback
-     //    //
-     //    function onError(error) {
-     //        alert('code: '    + error.code    + '\n' +
-     //              'message: ' + error.message + '\n');
-     //    }
-  </script>
-
-
-
+<script>
+$(document).ready(function() {
+  $('#calendar-view').fullCalendar({
+    editable: true,
+    events: []
+  });
+});
+</script>
 </html>

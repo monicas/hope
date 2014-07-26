@@ -26,7 +26,16 @@ title {
     background-color: skyblue;
 }
 
+#calendar-view {
+    width: auto;
+    margin: auto;
+}
 
+#page-view img {
+    max-width: 100%;
+    max-height: 150%;
+    background-size: cover;
+}
 
 
 body {
@@ -45,13 +54,14 @@ body {
         color-stop(0.51, #E4E4E4)
     );
     background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+    font-size: 14px;
     height:100%;
     margin:0px;
     padding:0px;
     text-transform:uppercase;
     width:100%;
+    
 }
 
 /* Portrait layout (default) */

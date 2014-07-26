@@ -10,17 +10,15 @@
 
 var clockApp = (function($) {
 
-
     // first create the model
     var myList = new ClockList();
 
-
-
     var showView = function(selected) {
-      window.location.hash = '#' + selected;
-      $('.view').hide().filter('#' + selected + '-view').show();
+        window.location.hash = '#' + selected;
+        $('.view').hide().filter('#' + selected + '-view').show();
     };
 
+<<<<<<< HEAD
 
     function test() {
         window.plugin.notification.local.add({ sound: '/www/audio/beep.mp3' });
@@ -40,143 +38,154 @@ var clockApp = (function($) {
                     console.log("Error message: " + errorMessage);
                 }, maxMatches, promptString, language);
 
+=======
+    function onDeviceReady(){
+      console.log("Device is ready");
+>>>>>>> 0a8f8e49f223bc951e7464e0bd61dff295a00649
     }
 
+    function recognizeSpeech() {
+      var maxMatches = 1;
+      var promptString = "Speak now"; // optional
+      var language = "en-US";         // optional
+      window.plugins.speechrecognizer.startRecognize(function(result){
+        alert(result);
+        if(result == "add alarm") {
+          clockApp.showView('editAlarm');
+        }
+      }, function(errorMessage){
+        console.log("Error message: " + errorMessage);
+      }, maxMatches, promptString, language);
+    }
 
-        //             navigator.speechrecognizer.recognize(successCallback, failCallback, 1, "Cordova Speech Recognizer Plugin");
-        // function successCallback(results){
-        //     console.log("Results: " + results);
-        //     alert("Results: "+results);
-        // }
+    function getSupportedLanguages() {
+      window.plugins.speechrecognizer.getSupportedLanguages(function(languages){
+      // display the json array
+      alert(languages);
+    },function(error){
+      alert("Could not retrieve the supported languages : " + error);
+    });
+    }
 
-        // function failCallback(error){
+    function speak(){
+      console.log("speak now!");
+      var maxMatches = 1;
+      var promptString = "Speak now"; // optional
+      var language = "en-US";                     // optional
+      window.plugins.speechrecognizer.startRecognize(function(result){
+        alert(result);
+      }, function(errorMessage){
+        console.log("Error message: " + errorMessage);
+      }, maxMatches, promptString, language);
+    }
 
-        //     console.log("Error: " + error);
-        // }
-
-
-  
     function handleDeletealarm(element) {
-        console.log("deleting alarm");
-        console.log(" with id " + element.getAttribute("sid"));
-        myList.deleteElement(element.getAttribute("sid"));
-
+      console.log("deleting alarm");
+      console.log(" with id " + element.getAttribute("sid"));
+      myList.deleteElement(element.getAttribute("sid"));
     }
 
     function addalarm() {
-
-
-        myList.addElement({
-            time: "",
-            status: true,
-            description: ""
-        });
-
+      myList.addElement({
+        time: "",
+        status: true,
+        description: ""
+      });
     }
 
     function editTime(element){
-        var alarmId = element.getAttribute("sid");
-        var alarmVal = element.value;
-        var alarm;
-        console.log("alarm "+alarmId+" has value "+alarmVal);
-        alarm = myList.getElement(alarmId);
-        alarm.time = alarmVal;
-        myList.updateElement(alarm.id,alarm);
-        refreshView();
-        
+      var alarmId = element.getAttribute("sid");
+      var alarmVal = element.value;
+      var alarm;
+      console.log("alarm "+alarmId+" has value "+alarmVal);
+      alarm = myList.getElement(alarmId);
+      alarm.time = alarmVal;
+      myList.updateElement(alarm.id,alarm);
+      refreshView();
     }
     
     function editstatus(element){
-        var alarmId = element.getAttribute("sid");
-        var statusCheckbox = document.getElementById('changestatus'+alarmId);
-        var alarm;
-      
-        alarm = myList.getElement(alarmId);
-        if(!alarm.status){
-            console.log("it was unchecked");
-            alarm.status = true;
-        } else {
-            console.log("it was checked");
-            alarm.status = false;
-        }
-        console.log("alarm "+alarmId+" changing its status to "+alarm.status);
-        myList.updateElement(alarm.id,alarm);
-        refreshView();
-    }
-    
-    function editDes(element){
-        var alarmId = element.getAttribute("sid");
-        var alarmVal = element.value;
-        var alarm;
-        console.log("alarm "+alarmId+" has value "+alarmVal);
-        alarm = myList.getElement(alarmId);
-        alarm.description = alarmVal;
-        myList.updateElement(alarm.id,alarm);
-        refreshView();
-        
+      var alarmId = element.getAttribute("sid");
+      var statusCheckbox = document.getElementById('changestatus'+alarmId);
+      var alarm;
+      alarm = myList.getElement(alarmId);
+      if(!alarm.status){
+        console.log("it was unchecked");
+        alarm.status = true;
+      } else {
+        console.log("it was checked");
+        alarm.status = false;
+      }
+      console.log("alarm "+alarmId+" changing its status to "+alarm.status);
+      myList.updateElement(alarm.id,alarm);
+      refreshView();
     }
 
- 
+    function editDes(element){
+      var alarmId = element.getAttribute("sid");
+      var alarmVal = element.value;
+      var alarm;
+      console.log("alarm "+alarmId+" has value "+alarmVal);
+      alarm = myList.getElement(alarmId);
+      alarm.description = alarmVal;
+      myList.updateElement(alarm.id,alarm);
+      refreshView();  
+    }
 
     function editalarm(element) {
-        console.log("editing alarm "+element.getAttribute("sid"));
+      console.log("editing alarm "+element.getAttribute("sid"));
     }
 
     function refreshView(){
-        clockView.refreshView(myList);
+      clockView.refreshView(myList);
     }
 
     function reloadModel(){
-        myList.loadModel();
-        refreshView();
+      myList.loadModel();
+      refreshView();
     }
-    
+
     function initEventListeners(){
-        $(window).on('hashchange', function(event){
-          var view = (window.location.hash || '').replace(/^#/, '');
-          if ($('#' + view + '-view').length) {
-            showView(view);
-          }
-        });
+      $(window).on('hashchange', function(event){
+        var view = (window.location.hash || '').replace(/^#/, '');
+        if ($('#' + view + '-view').length) {
+          showView(view);
+        }
+      });
     }
 
     function start() {
-        myList.loadModel();
-        console.log("myList = " + JSON.stringify(myList));
-        clockView.refreshView(myList);
-        showView("welcome");
-
-
+      myList.loadModel();
+      clockView.refreshView(myList);
+      showView("welcome");
     }
 
     function startup() {
-  var el = document.getElementsByTagName("canvas")[0];
-  el.addEventListener("touchstart", handleStart, false);
-  el.addEventListener("touchend", handleEnd, false);
-  el.addEventListener("touchcancel", handleCancel, false);
-  el.addEventListener("touchleave", handleEnd, false);
-  el.addEventListener("touchmove", handleMove, false);
-  log("initialized.");
-}
+      var el = document.getElementsByTagName("canvas")[0];
+      el.addEventListener("touchstart", handleStart, false);
+      el.addEventListener("touchend", handleEnd, false);
+      el.addEventListener("touchcancel", handleCancel, false);
+      el.addEventListener("touchleave", handleEnd, false);
+      el.addEventListener("touchmove", handleMove, false);
+      log("initialized.");
+    }
 
-    // here is were we decide what is visible to the outside!
     clockApp = {
-        start: start,
-        addalarm: addalarm,
-        handleDeletealarm: handleDeletealarm,
-        refreshView: refreshView,
-        speak:speak,
-        editalarm: editalarm,
-        reloadModel: reloadModel,
-        editTime:editTime,
-        editstatus: editstatus,
-        editDes: editDes,
-        showView: showView
+      start: start,
+      addalarm: addalarm,
+      handleDeletealarm: handleDeletealarm,
+      refreshView: refreshView,
+      speak:speak,
+      editalarm: editalarm,
+      reloadModel: reloadModel,
+      editTime:editTime,
+      editstatus: editstatus,
+      editDes: editDes,
+      showView: showView
     }
 
     return (clockApp);
-
-}(jQuery));
+  }(jQuery));
 
 
 
