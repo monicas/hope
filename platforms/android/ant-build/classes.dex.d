@@ -1,0 +1,23 @@
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes.dex : \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/com/phonegap/plugins/speech/LanguageDetailsChecker.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/com/phonegap/plugins/speech/SpeechRecognizer.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/LocalNotification$1.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/LocalNotification$2.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/LocalNotification$3.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/LocalNotification$4.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/LocalNotification.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/Options.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/Receiver.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/ReceiverActivity.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/Restore.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/edu/brandeis/monica/BuildConfig.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/edu/brandeis/monica/hope.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/edu/brandeis/monica/R$attr.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/edu/brandeis/monica/R$drawable.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/edu/brandeis/monica/R$string.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/edu/brandeis/monica/R$xml.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/edu/brandeis/monica/R.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/org/apache/cordova/device/Device.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/classes/org/apache/cordova/plugin/TTS.class \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/dexedLibs/classes-69a109ffdf88e69f7ec297ee5b1d7313.jar \
+/Users/Ben/Desktop/School_Work/Summer_2014/JBS/Workspace/YoWakeUp/hope/platforms/android/ant-build/dexedLibs/android-support-v4-25b7791c9bc2ad591897cb67efb93728.jar \
