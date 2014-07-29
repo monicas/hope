@@ -4,15 +4,15 @@
   <title>Smart clock</title>
   <link href="css/bootstrap.css" rel="stylesheet" />
   <link href="css/bootstrap-theme.css" rel="stylesheet" />
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
   <script src="js/jquery-2.1.1.min.js"></script>
   <script src="js/model.js"></script>
   <script src="js/view.js"></script>
   <script src="js/controller.js"></script>
-  <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-  <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css">
-  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src="//code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css">
+  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
   <meta charset='utf-8' />
   <meta name="format-detection" content="telephone=no" />
   <meta name="msapplication-tap-highlight" content="no" />
@@ -23,7 +23,6 @@
   <script src='js/jquery.min.js'></script>
   <script src='js/jquery-ui.custom.min.js'></script>
   <script src="css/style.css"></script>
-
 
 
   <style>
@@ -45,22 +44,17 @@
       background-size: cover;
     }
   </style>
-
-</head>
-
-
+  
 <body>
-  <div data-role="header" style="overflow:hidden;" class="ui-body-b ui-body">
-    <span><a href="/"><img src="logo.jpg" alt="company logo" width="200" height="115"></a>  <!--taken from selfmadehero.com. Property of Wake Up Productions--> </span>
-    <span>Yo! Wake up!!</span>
+  
+
       <a href="" data-icon="gear" class="ui-btn-right">Options</a>
-      <a href="" data-icon="refresh" onclick="clockApp.reloadModel()" width="50" height="50" ></a>
-      <a href="" data-icon="plus" onnclick="clockApp.showView('about')" width="50" height="50" ></a>
   </div><!-- /header -->
 
   <div class="container">
-    <div class="page-header">
-
+    <div class="page-header" style="overflow:hidden;" class="ui-body-b ui-body">
+    <span><a href="/"><img src="logo.jpg" alt="company logo" width="200" height="115"></a>  <!--taken from selfmadehero.com. Property of Wake Up Productions--> </span>
+    <span>Yo! Wake up!!</span>
     </div>
   </div>
 
@@ -101,7 +95,7 @@
         </form>
       </li>
     </ul>
-    <button onclick="playAudio('http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3');">
+    <button onclick="clockApp.playAudio('http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3');">
     <span>Play</span></button>
   </div>
 
@@ -123,38 +117,39 @@
 
 
   <div id="editAlarm-view" class="view">
-   
+  <!-- yuya's code -->
+    <form>
+      <div class="ui-body ui-body-d ui-corner-all">
+        <p>List of Alarms</p>
+        <div data-role="controlgroup" id="my-controlgroup"><!-- items will be injected here --></div>
+      </div>
+    </form>
 
-    <!-- form to fill out -->
-    <div class="panel panel-info">
-      <label>Time:</label>
-      <input type="time" class="form-control" id="newAlarmTime">
-      <label>Description:</label>
-      <input type="text" class="form-control" id="newAlarmDescription" placeholder="Enter new alarms here" />
-      <label>Ringtone:</label>
-      <input type="text" class="form-control" id="newAlarmRingtone" placeholder="Choose ringtones here" />
-    </div>
-
-    <script type="text/javascript" src="cordova.js"></script>
-    <input name="" id="numberTxt" placeholder="Enter mobile number" value="" type="tel" />
-    <br/>
-    <textarea name="" id="messageTxt" placeholder="Enter message"></textarea>
-    <br/>
-    <button class="btn btn-default" id="btnDefaultSMS">Send</button>
-
+    <form>
+      <label for="time">Time: </label><input type="time" class="form-control" id="newAlarmTime" />
+      <label for="description">Description: </label><input type="text" class="form-control" id="newAlarmDescription" placeholder="Title/Description of Alarm" />
+      <div class="snooze" id="editSnooze-view" class="view">
+        <label for="Ringtone">Ringtone: </label><input type="text" class="form-control" id="newAlarmRingtone" placeholder="Choose ringtones here" /><audio id="audio2" preload="auto" src="http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3" ></audio>
+        <script type="text/javascript" src="cordova.js"></script>
+        <label for="Contocts">Contacts: </label><input id="numberTxt" placeholder="Enter contact's number" value="" type="tel" /><br/>
+        <textarea name="" id="messageTxt" placeholder="Enter message here"></textarea><br/>
+        <button class="btn btn-default" id="btnDefaultSMS">Send</button>
+        
+        <script>$("#btnDefaultSMS").click(function(){
+                    alert("click in index.html middle");
+                    var number = $("#numberTxt").val();
+                    var message = $("#messageTxt").val();
+                    var intent = ""; //leave empty for sending sms using default intent
+                    var success = function () { alert('Message sent successfully'); };
+                    var error = function (e) { alert('Message Failed:' + e); };
+                    sms.send(number, message, intent, success, error);
+                  });
+        </script>
+      </div>
+    </form>
     <button class="btn btn-default" id="addAlarm" onclick="clockApp.addalarm(), clockApp.showView('clockList')">Save</button>
     <button class="btn btn-default" id="cancelAlarm" onclick="clockApp.showView('clockList')">Cancel</button>
-    <script>
-    $("#btnDefaultSMS").click(function(){
-    alert("click in index.html middle");
-    var number = $("#numberTxt").val();
-    var message = $("#messageTxt").val();
-    var intent = ""; //leave empty for sending sms using default intent
-    var success = function () { alert('Message sent successfully'); };
-    var error = function (e) { alert('Message Failed:' + e); };
-    sms.send(number, message, intent, success, error);
-  });
-    </script>
+
   </div>
 
 
@@ -165,9 +160,9 @@
     <span><button id="plusBtn" class="btn btn-default" onclick="clockApp.showView('toggle')">+</button>
   </span> --> 
   <div>
-    <form>
-      <input type="button" data-role="none" value="+" onclick="clockApp.showView('editAlarm')">
-      <input type="reset" data-role="none" value="Reload" onclick="clockApp.reloadModel()">
+    <form data-inline="true">
+      <a href=""><input type="reset" data-role="none" value="Reload" data-icon="refresh" onclick="clockApp.reloadModel()" width="75" height="75" class="ui-btn-left" /></a>
+      <a href=""><input type="button" data-icon="plus" data-role="none" value="+" onclick="clockApp.showView('editAlarm')" width="75" height="75" class="ui-btn-right"></a>
     </form>
   </div>
 
@@ -187,30 +182,22 @@
 
       <div class="checkbox-inline">
         <label><input id="showon" type="checkbox" name="try" onchange="clockApp.refreshView()" checked> Show "On" Alarms</label>
+          <button id="append" data-mini="true" data-inline="true">Append</button>
       </div>
   </div>
 </body>
 
   <script>
-     $("[name='try']").bootstrapSwitch();
+   //  $("[name='try']").bootstrapSwitch();
   $(document).ready(clockApp.start());
 
   </script>
-  <div>
-        <button onclick="clockApp.showView('clockList')">
-        <span>Clocks</span></button>
-    <button onclick="clockApp.showView('contacts')">
-        <span>Contacts</span></button>
-    <button onclick="clockApp.showView('about')">
-        <span>About</span></button>
-</div>
 
     <div data-role="footer" data-position="fixed" class="ui-body-b ui-body">
         <div data-role="navbar" d>
           <ul class="nav nav-tabs" id="bottom-tabs" data-iconpos="bottom">
             <li><a  data-icon="home" onclick="clockApp.showView('welcome')"  icon-size="auto" toggle="tab"></a></li>
             <li><a data-icon="bullets" onclick="clockApp.showView('clockList')" icon-size="auto" toggle="tab"></a></li>
-            <li><a data-icon="calendar" onclick="clockApp.showView('calendar')" icon-size="auto" toggle="tab"></a></li>
             <li><a data-icon="user"  onclick="clockApp.showView('contacts')" icon-size="auto" toggle="tab"></a></li>
              <li><a data-icon="info" onclick="clockApp.showView('about')" icon-size="auto"></a></li>
           </ul> 
@@ -218,63 +205,9 @@
     </div><!-- /footer -->
  
         <script type="text/javascript">
-            clockApp.start();
+          clockApp.start();
         </script>
 
-<script>
-     // document.addEventListener("deviceready", onDeviceReady, false);
-
-     //    // device APIs are available
-     //    //
-     //    function onDeviceReady() {
-     //        playAudio("cocoa.mp3");
-     //    }
-
-     //    // Audio player
-     //    //
-     //    var my_media = null;
-     //    var mediaTimer = null;
-
-     //    // Play audio
-     //    //
-     //    function playAudio(src) {
-     //        var now = new Date;
-     //        var hour = now.getHours(); console.log('hour' + hour);
-     //        var minutes = now.getMinutes(); console.log("minute" + minutes);
-     //        var alarmHour = ;
-     //        var alarmMinute = ;
-     //        if (isNaN(alarmHour) || alarmHour < 0 || alarmHour > 23) {
-     //           throw new Error('invalid hour: ' + alarmHour);
-     //        }
- 
-     //        if (isNaN(alarmMinute) || alarmMinute < 0 || alarmMinute > 59) {
-     //           throw new Error('invalid minute: ' + alarmMinute);
-     //        }
-
-
-     //        // Create Media object from src
-     //        my_media = new Media(src, onSuccess, onError);
-     //   //     my_media.play();}
-     //        // Play audio
-     //       if (hour == alarmHour && minutes == alarmMinute) {
-     //         console.log('works');
-     //         my_media.play();
-     //        }}
-
-            
-     //    // onSuccess Callback
-     //    //
-     //    function onSuccess() {
-     //        console.log("playAudio():Audio Success");
-     //    }
-
-     //    // onError Callback
-     //    //
-     //    function onError(error) {
-     //        alert('code: '    + error.code    + '\n' +
-     //              'message: ' + error.message + '\n');
-     //    }
-  </script>
 
 
 

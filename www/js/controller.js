@@ -155,6 +155,8 @@ var clockApp = (function($) {
   log("initialized.");
 }
 
+
+
     // here is were we decide what is visible to the outside!
     clockApp = {
         start: start,
