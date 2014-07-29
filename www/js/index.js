@@ -43,27 +43,7 @@ var app = {
             var error = function (e) { alert('Message Failed:' + e); };
             sms.send(number, message, intent, success, error);
         });*/
-//ondeviceready local notification
-   /*     document.addEventListener('deviceready', function () {
-        // window.plugin.notification.local is now available
-        console.log("it's working");
-        var now = new Date().getTime();
-        var then = new Date(now+5*1000); // 5 sec from now
-        window.plugin.notification.local.add({
-            id:         "test1",  // A unique id of the notifiction
-            date:       then,    // This expects a date object
-            message:    "test",  // The message that is displayed
-            title:      "success",  // The title of the message
-            repeat:     "secondly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
-            badge:      1,  // Displays number badge to notification
-            //sound:      String,  // A sound to be played
-           // json:       (a:9),  // Data to be passed through the notification
-            autoCancel: true, // Setting this flag and the notification is automatically canceled when the user clicks it
-            ongoing:    false, // Prevent clearing of notification (Android only)
-            });
 
-        
-         }, false);*/
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {

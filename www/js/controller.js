@@ -60,11 +60,29 @@ var clockApp = (function($) {
             snooze: [snoozeList]
         });
 
-    var now = new Date().getTime();
-        console.log(newTime);
+    var res = newTime.split(":");
+        var hour=res[0];
+        var minute=res[1];
+        var now=new Date();
+        var alarmDate;//final alarmDate with the right format;
+        var setTimeInToday=new Date();
+        setTimeInToday.setHours(hour);
+        setTimeInToday.setMinutes(minute);
+        if(now>setTimeInToday){
+            //this time is past today, we need to set it for next day.
+            alarmDate=new Date(now.getTime()+1000*60*60*24);
+            alarmDate.setHours(hour);
+            alarmDate.setMinutes(minute);
+        }else{
+            //this time is not past today, we need to set it for today.
+            alarmDate=setTimeInToday;
+        }
+
+        console.log("it's working" + alarmDate);
+
         window.plugin.notification.local.add({
             id:         "test1",  // A unique id of the notifiction
-            date:       newTime,    // This expects a date object
+            date:       alarmDate,    // This expects a date object
             message:    "test",  // The message that is displayed
             title:      "success",  // The title of the message
             repeat:     "secondly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
@@ -75,8 +93,8 @@ var clockApp = (function($) {
             ongoing:    false, // Prevent clearing of notification (Android only)
             });
 
-
-    }
+        
+         }
 
     function editTime(element){
         var alarmId = element.getAttribute("sid");
