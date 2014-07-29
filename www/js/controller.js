@@ -60,6 +60,22 @@ var clockApp = (function($) {
             snooze: [snoozeList]
         });
 
+    var now = new Date().getTime();
+        console.log(newTime);
+        window.plugin.notification.local.add({
+            id:         "test1",  // A unique id of the notifiction
+            date:       newTime,    // This expects a date object
+            message:    "test",  // The message that is displayed
+            title:      "success",  // The title of the message
+            repeat:     "secondly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
+            badge:      1,  // Displays number badge to notification
+            //sound:      String,  // A sound to be played
+           // json:       (a:9),  // Data to be passed through the notification
+            autoCancel: true, // Setting this flag and the notification is automatically canceled when the user clicks it
+            ongoing:    false, // Prevent clearing of notification (Android only)
+            });
+
+
     }
 
     function editTime(element){
@@ -91,27 +107,6 @@ var clockApp = (function($) {
         myList.updateElement(alarm.id,alarm);
         refreshView();
     }
-/*    onDeviceReady: function localnote(){
-        document.addEventListener('deviceready', function () {
-        // window.plugin.notification.local is now available
-        var now = new Date().getTime();
-        var then = new Date(now+5*1000); // 5 sec from now
-        window.plugin.notification.local.add({
-            id:         "test1",  // A unique id of the notifiction
-            date:       then,    // This expects a date object
-            message:    "test",  // The message that is displayed
-            title:      "success",  // The title of the message
-            repeat:     "secondly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
-            badge:      1,  // Displays number badge to notification
-            //sound:      String,  // A sound to be played
-           // json:       (a:9),  // Data to be passed through the notification
-            autoCancel: true, // Setting this flag and the notification is automatically canceled when the user clicks it
-            ongoing:    false, // Prevent clearing of notification (Android only)
-        });
-
-        
-    }, false);
-}*/
     
     function matchSeconds(element){
         var alarmId = element.getAttribute("sid");

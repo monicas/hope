@@ -33,7 +33,7 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-     //  app.receivedEvent('deviceready');
+       app.receivedEvent('deviceready');
      /*   $("#btnDefaultSMS").click(function(){
             alert("click in index.js");
             var number = $("#numberTxt").val();
@@ -44,7 +44,7 @@ var app = {
             sms.send(number, message, intent, success, error);
         });*/
 //ondeviceready local notification
-        document.addEventListener('deviceready', function () {
+   /*     document.addEventListener('deviceready', function () {
         // window.plugin.notification.local is now available
         console.log("it's working");
         var now = new Date().getTime();
@@ -63,7 +63,7 @@ var app = {
             });
 
         
-         }, false);
+         }, false);*/
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
