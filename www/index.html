@@ -16,13 +16,25 @@
   <meta charset='utf-8' />
   <meta name="format-detection" content="telephone=no" />
   <meta name="msapplication-tap-highlight" content="no" />
-  <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+  <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" /> -->
   <link rel="stylesheet" type="text/css" href="css/index.css" />
   <script src='js/moment.min.js'></script>
   <script src='js/jquery.min.js'></script>
+
+
+  <script src='js/tts.js'></script>
   <script src='js/jquery-ui.custom.min.js'></script>
   <script src="css/style.css"></script>
+
+  <!--for file read -->
+  <script LANGUAGE="JavaScript">
+  var myloc = window.location.href;
+  var locarray = myloc.split("/");
+  delete locarray[(locarray.length-1)];
+  var arraytext = locarray.join("/");
+  console.log(arraytext);
+  </script>
 
 
   <style>
@@ -44,7 +56,6 @@
       background-size: cover;
     }
   </style>
-  
 <body>
   
 
@@ -52,7 +63,7 @@
   </div><!-- /header -->
 
   <div class="container">
-    <div class="page-header" style="overflow:hidden;" class="ui-body-b ui-body">
+    <div class="page-header" style="overflow:hidden;" class="ui-body-b ui-body" float="middle">
     <span><a href="/"><img src="logo.jpg" alt="company logo" width="200" height="115"></a>  <!--taken from selfmadehero.com. Property of Wake Up Productions--> </span>
     <span>Yo! Wake up!!</span>
     </div>
@@ -61,7 +72,6 @@
   <div id="welcome-view" class="view">
     <h1>
         <dt>Yo!! wake up!</dt>
-        <dd>This clock app is a demo for the CS152aj class on Web and Mobile programming using Javascript.</dd>
     </h1>
   </div>
 
@@ -95,7 +105,8 @@
         </form>
       </li>
     </ul>
-    <button onclick="clockApp.playAudio('http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3');">
+
+    <button onclick="clockApp.playAudio(/android_asset/www/OneSummerDay.mp3);">
     <span>Play</span></button>
   </div>
 
@@ -114,43 +125,62 @@
 
 
 
-
-
   <div id="editAlarm-view" class="view">
-  <!-- yuya's code -->
+    <!-- yuya & jack's code -->
     <form>
       <div class="ui-body ui-body-d ui-corner-all">
         <p>List of Alarms</p>
         <div data-role="controlgroup" id="my-controlgroup"><!-- items will be injected here --></div>
       </div>
-    </form>
-
-    <form>
-      <label for="time">Time: </label><input type="time" class="form-control" id="newAlarmTime" />
-      <label for="description">Description: </label><input type="text" class="form-control" id="newAlarmDescription" placeholder="Title/Description of Alarm" />
-      <div class="snooze" id="editSnooze-view" class="view">
-        <label for="Ringtone">Ringtone: </label><input type="text" class="form-control" id="newAlarmRingtone" placeholder="Choose ringtones here" /><audio id="audio2" preload="auto" src="http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3" ></audio>
-        <script type="text/javascript" src="cordova.js"></script>
-        <label for="Contocts">Contacts: </label><input id="numberTxt" placeholder="Enter contact's number" value="" type="tel" /><br/>
-        <textarea name="" id="messageTxt" placeholder="Enter message here"></textarea><br/>
-        <button class="btn btn-default" id="btnDefaultSMS">Send</button>
-        
-        <script>$("#btnDefaultSMS").click(function(){
-                    alert("click in index.html middle");
-                    var number = $("#numberTxt").val();
-                    var message = $("#messageTxt").val();
-                    var intent = ""; //leave empty for sending sms using default intent
-                    var success = function () { alert('Message sent successfully'); };
-                    var error = function (e) { alert('Message Failed:' + e); };
-                    sms.send(number, message, intent, success, error);
-                  });
-        </script>
+      <div class="panel panel-info">
+        <label>Time:</label>
+        <input type="time" class="form-control" id="newAlarmTime">
+        <label>Description:</label>
+        <input type="text" class="form-control" id="newAlarmDescription" placeholder="Enter new alarms here" />
+        <label>Ringtone:</label>
+        <input type="text" class="form-control" id="newAlarmRingtone" placeholder="Choose ringtones here" />
       </div>
-    </form>
-    <button class="btn btn-default" id="addAlarm" onclick="clockApp.addalarm(), clockApp.showView('clockList')">Save</button>
-    <button class="btn btn-default" id="cancelAlarm" onclick="clockApp.showView('clockList')">Cancel</button>
 
-  </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script> <!-- ADDED INDEX.JS BACK TO MAKE PLUGIN WORK -->
+        <script type="text/javascript"> app.initialize(); </script>
+        <input name="" id="numberTxt" placeholder="Enter mobile number" value="" type="tel" />
+        <br/>
+        <textarea name="" id="messageTxt" placeholder="Enter message"></textarea>
+        <br/>
+        <button class="btn btn-default" id="btnDefaultSMS">Send</button>
+
+        <form>
+          <label for="time">Time: </label><input type="time" class="form-control" id="newAlarmTime" />
+          <label for="description">Description: </label><input type="text" class="form-control" id="newAlarmDescription" placeholder="Title/Description of Alarm" />
+          <div class="snooze" id="editSnooze-view" class="view">
+            <label for="Ringtone">Ringtone: </label><input type="text" class="form-control" id="newAlarmRingtone" placeholder="Choose ringtones here" /><audio id="audio2" preload="auto" src="http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3" ></audio>
+            <script type="text/javascript" src="cordova.js"></script>
+            <label for="Contocts">Contacts: </label><input id="numberTxt" placeholder="Enter contact's number" value="" type="tel" /><br/>
+            <textarea name="" id="messageTxt" placeholder="Enter message here"></textarea><br/>
+            <button class="btn btn-default" id="btnDefaultSMS">Send</button>
+            
+            <script>$("#btnDefaultSMS").click(function(){
+                        alert("click in index.html middle");
+                        var number = $("#numberTxt").val();
+                        var message = $("#messageTxt").val();
+                        var intent = ""; //leave empty for sending sms using default intent
+                        var success = function () { alert('Message sent successfully'); };
+                        var error = function (e) { alert('Message Failed:' + e); };
+                        sms.send(number, message, intent, success, error);
+                      });
+            </script>
+          </div>
+        </form>
+        <button class="btn btn-default" id="addAlarm" onclick="clockApp.addalarm(), clockApp.showView('clockList')">Save</button>
+        <button class="btn btn-default" id="cancelAlarm" onclick="clockApp.showView('clockList')">Cancel</button>
+
+      </div>
+
+    </form>
+   
+
+    <!-- form to fill out -->
 
 
 
@@ -185,11 +215,30 @@
           <button id="append" data-mini="true" data-inline="true">Append</button>
       </div>
   </div>
+  <button onclick="recognizeSpeech();">Start recognition</button>
+ 
+<!--   <div onload="onLoad()">
+        <h2>TTS Example</h2>
+  <input id="playMe" type="text"/><br/>
+  <select id="langs" onchange="changeLang()"></select>
+    <button onclick="speak();">Speak</button>
+  </div> 
+
+yuya's from here..
+
+
+-->
+
+
+  
+  <script src='js/speechRecognition.js'></script>
 </body>
 
   <script>
    //  $("[name='try']").bootstrapSwitch();
   $(document).ready(clockApp.start());
+ 
+
 
   </script>
 
@@ -208,7 +257,16 @@
           clockApp.start();
         </script>
 
+<audio id="audio2" 
+       preload="auto" 
+       src="/android_asset/www/OneSummerDay.mp3" >
+    
+</audio>
 
-
+<label for="flip-a">Select slider:</label>
+<select name="slider" id="flip-a" data-role="slider">
+  <option value="off">Off</option>
+  <option value="on">On</option>
+</select>
 
 </html>

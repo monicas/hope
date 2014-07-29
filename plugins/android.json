@@ -27,6 +27,14 @@
                         {
                             "xml": "<feature name=\"LocalNotification\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.localnotification.LocalNotification\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SpeechRecognizer\"><param name=\"android-package\" value=\"com.phonegap.plugins.speech.SpeechRecognizer\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"TTS\"><param name=\"android-package\" value=\"org.apache.cordova.plugin.TTS\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -91,6 +99,12 @@
             "PACKAGE_NAME": "edu.brandeis.monica"
         },
         "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "edu.brandeis.monica"
+        },
+        "com.phonegap.plugins.speech": {
+            "PACKAGE_NAME": "edu.brandeis.monica"
+        },
+        "org.apache.cordova.plugin.tts": {
             "PACKAGE_NAME": "edu.brandeis.monica"
         }
     },

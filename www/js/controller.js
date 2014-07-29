@@ -136,6 +136,8 @@ var clockApp = (function($) {
         });
     }
 
+    
+
     function start() {
         myList.loadModel();
         console.log("myList = " + JSON.stringify(myList));
