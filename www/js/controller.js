@@ -51,11 +51,13 @@ var clockApp = (function($) {
     var newTime = document.getElementById('newAlarmTime').value;
     var newDescription = document.getElementById('newAlarmDescription').value;
     var newRingTone = document.getElementById('newAlarmRingtone').value;
+    var snoozeList = [newTime,newDescription];
         myList.addElement({
             time: newTime,
             status: true,
             description: newDescription,
-            ringtone: newRingTone
+            ringtone: newRingTone,
+            snooze: [snoozeList]
         });
 
     }
@@ -89,24 +91,52 @@ var clockApp = (function($) {
         myList.updateElement(alarm.id,alarm);
         refreshView();
     }
+/*    onDeviceReady: function localnote(){
+        document.addEventListener('deviceready', function () {
+        // window.plugin.notification.local is now available
+        var now = new Date().getTime();
+        var then = new Date(now+5*1000); // 5 sec from now
+        window.plugin.notification.local.add({
+            id:         "test1",  // A unique id of the notifiction
+            date:       then,    // This expects a date object
+            message:    "test",  // The message that is displayed
+            title:      "success",  // The title of the message
+            repeat:     "secondly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
+            badge:      1,  // Displays number badge to notification
+            //sound:      String,  // A sound to be played
+           // json:       (a:9),  // Data to be passed through the notification
+            autoCancel: true, // Setting this flag and the notification is automatically canceled when the user clicks it
+            ongoing:    false, // Prevent clearing of notification (Android only)
+        });
+
+        
+    }, false);
+}*/
     
-  /* function matchSeconds(element){
+    function matchSeconds(element){
         var alarmId = element.getAttribute("sid");
         var currentHour = new Date().getHours();
         var currentMinutes = new Date().getMinutes();
         var currentTime = ""+currentHour+":"+currentMinutes ;
 
-        for ()
         alarm = myList.getElement(alarmId);
-        if ((alarm.status = true) && (alarm.time = currentTime)){
+        if ((alarm.status == true) && (alarm.time == currentTime)){
                     console.log("this is executing~~~~~");
-                    myAudio=document.getElementById('audio2');
-                    myAudio.addEventListener('canplaythrough', function() {
-                    console.log("something");
-                    this.play();
-                    });
-        } else {console.log("it sucks")}
-    }*/
+                    var my_media = new Media("/android_asset/www/OneSummerDay.mp3",
+                    // success callback
+                    function() {
+                        console.log("playAudio():Audio Success");
+                    },
+                    // error callback
+                    function(err) {
+                        console.log("playAudio():Audio Error: "+err);
+                    }
+                );
+                my_media.play();
+                 }   
+         else 
+        {console.log("it sucks")}
+    }
         
     function playAudio(url) {
     // Play the audio file at url
@@ -191,7 +221,9 @@ var clockApp = (function($) {
         editstatus: editstatus,
         editDes: editDes,
         showView: showView,
-        playAudio: playAudio
+        playAudio: playAudio,
+        matchSeconds: matchSeconds
+       // localnote: localnote
     }
 
     return (clockApp);
