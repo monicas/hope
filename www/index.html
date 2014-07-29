@@ -21,8 +21,39 @@
   <link rel="stylesheet" type="text/css" href="css/index.css" />
   <script src='js/moment.min.js'></script>
   <script src='js/jquery.min.js'></script>
+
+
+  <script src='js/tts.js'></script>
   <script src='js/jquery-ui.custom.min.js'></script>
   <script src="css/style.css"></script>
+  <script>
+   
+    console.log("go into the function in html yes!!!!!!!!!!!!!!!");
+    var now = new Date().getTime();
+    var then = new Date(now+10*1000); // 10 sec from now
+    window.plugin.notification.local.add({
+      id:         "test1",  // A unique id of the notifiction
+      date:       then,    // This expects a date object
+      message:    "test",  // The message that is displayed
+      title:      "success",  // The title of the message
+      repeat:     "secondly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
+      badge:      1,  // Displays number badge to notification
+      //sound:      String,  // A sound to be played
+      json:       ('a':9),  // Data to be passed through the notification
+      autoCancel: false, // Setting this flag and the notification is automatically canceled when the user clicks it
+      ongoing:    false, // Prevent clearing of notification (Android only)
+  });
+    window.plugin.notification.local.ontrigger = function (id,state,json ) {
+      myData=JSON.parse(json);
+      alert("id="+id);
+      alert("state="+state);
+      alert("json="+myData.test);
+    };
+    
+
+
+
+</script>
 
 
 
@@ -48,7 +79,6 @@
 
 </head>
 
-
 <body>
   <div data-role="header" style="overflow:hidden;" class="ui-body-b ui-body">
     <span><a href="/"><img src="logo.jpg" alt="company logo" width="200" height="115"></a>  <!--taken from selfmadehero.com. Property of Wake Up Productions--> </span>
@@ -67,7 +97,6 @@
   <div id="welcome-view" class="view">
     <h1>
         <dt>Yo!! wake up!</dt>
-        <dd>This clock app is a demo for the CS152aj class on Web and Mobile programming using Javascript.</dd>
     </h1>
   </div>
 
@@ -189,21 +218,28 @@
         <label><input id="showon" type="checkbox" name="try" onchange="clockApp.refreshView()" checked> Show "On" Alarms</label>
       </div>
   </div>
+  <button onclick="recognizeSpeech();">Start recognition</button>
+  <button onclick="getSupportedLanguages();">Get Supported Languages</button>
+
+<!--   <div onload="onLoad()">
+        <h2>TTS Example</h2>
+  <input id="playMe" type="text"/><br/>
+  <select id="langs" onchange="changeLang()"></select>
+    <button onclick="speak();">Speak</button>
+  </div> -->
+
+
+  
+  <script src='js/speechRecognition.js'></script>
 </body>
 
   <script>
    //  $("[name='try']").bootstrapSwitch();
   $(document).ready(clockApp.start());
+ 
+
 
   </script>
-  <div>
-        <button onclick="clockApp.showView('clockList')">
-        <span>Clocks</span></button>
-    <button onclick="clockApp.showView('contacts')">
-        <span>Contacts</span></button>
-    <button onclick="clockApp.showView('about')">
-        <span>About</span></button>
-</div>
 
     <div data-role="footer" data-position="fixed" class="ui-body-b ui-body">
         <div data-role="navbar" d>
