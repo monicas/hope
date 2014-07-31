@@ -68,11 +68,13 @@ var clockApp = (function($) {
         var setTimeInToday=new Date();
         setTimeInToday.setHours(hour);
         setTimeInToday.setMinutes(minute);
+        setTimeInToday.setSeconds(0);
         if(now>setTimeInToday){
             //this time is past today, we need to set it for next day.
             alarmDate=new Date(now.getTime()+1000*60*60*24);
             alarmDate.setHours(hour);
             alarmDate.setMinutes(minute);
+            alarmDate.setSeconds(0);
         }else{
             //this time is not past today, we need to set it for today.
             alarmDate=setTimeInToday;
@@ -84,7 +86,7 @@ var clockApp = (function($) {
             id:         "test1",  // A unique id of the notifiction
             date:       alarmDate,    // This expects a date object
             message:    "test",  // The message that is displayed
-            title:      "success",  // The title of the message
+            title:      newDescription,  // The title of the message
             repeat:     "secondly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
             badge:      1,  // Displays number badge to notification
             //sound:      String,  // A sound to be played
@@ -92,9 +94,50 @@ var clockApp = (function($) {
             autoCancel: true, // Setting this flag and the notification is automatically canceled when the user clicks it
             ongoing:    false, // Prevent clearing of notification (Android only)
             });
+        var cancel =false;
+         window.plugin.notification.local.ontrigger = function (id,state,json) {
+
+            console.log("it is triggered!");
+            if(cancel==true){
+                console.log("it should cancel it, right?");
+                window.plugin.notification.local.cancel("test1");
+            }else{
+                if (window.confirm("Alarm : "+newDescription+" at "+alarmDate)) { 
+                //randomly generate two integers between 20 to 40.
+                    var oneNumber=Math.floor(Math.random() * (40 - 20) + 20);
+                    var theOtherNumber=Math.floor(Math.random() * (40 - 20) + 20);
+                    var answer = prompt("What's "+oneNumber+" + "+theOtherNumber+"?");
+                    if (answer == (oneNumber+theOtherNumber)) {
+                        alert("it's correct! Welcome to your new day!");
+                        cancel=true;
+                    }else{
+                        alert("Wrong Answer!");
+                    }
+                
+                }else{
+                    console.log("not cancel");
+                }
+            }
+            console.log("cancel = "+cancel);
+            
+
+        };
+    
 
         
+
+        window.plugin.notification.local.onclick = function (id, state, json) {
+            alert("test on when onclick!!!!!");
+            //when click the save button on the edit alarm page. it's onclick!
+        };
+
+            
+        
          }
+         
+
+
+
 
     function editTime(element){
         var alarmId = element.getAttribute("sid");

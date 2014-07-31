@@ -1,5 +1,11 @@
 
-            function onDeviceReady(){
+            
+
+            
+
+
+
+        function onDeviceReady(){
                 console.log("Device is ready");
             }
 
@@ -7,7 +13,9 @@
                 var maxMatches = 1;
                 var promptString = "Speak now"; // optional
                 var language = "en-US";    
-                alert("almost there");                 // optional
+                alert("almost there");   
+                window.plugins.tts.startup(startupWin, fail);
+                window.plugins.tts.speak("it's correct! Welcome to your new day!");              // optional
                 window.plugins.speechrecognizer.startRecognize(function(result){
                     alert(result);
                     if(result=="add alarm"){
