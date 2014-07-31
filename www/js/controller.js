@@ -83,58 +83,86 @@ var clockApp = (function($) {
         console.log("it's working" + alarmDate);
 
         window.plugin.notification.local.add({
-            id:         "test1",  // A unique id of the notifiction
-            date:       alarmDate,    // This expects a date object
+            id:         "1",  // A unique id of the notifiction
+            date:       new Date(now.getTime()+5*1000),    // This expects a date object
             message:    "test",  // The message that is displayed
             title:      newDescription,  // The title of the message
             repeat:     "secondly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
             badge:      1,  // Displays number badge to notification
-            //sound:      String,  // A sound to be played
+            //sound:      'android.resource://edu.brandeis.hope/raw/onesummerday',  // A sound to be played
            // json:       (a:9),  // Data to be passed through the notification
             autoCancel: true, // Setting this flag and the notification is automatically canceled when the user clicks it
             ongoing:    false, // Prevent clearing of notification (Android only)
             });
-        var cancel =false;
+        
+            var cancel =false; //whether the whole alarm is cancelled.(including two snoozes)
          window.plugin.notification.local.ontrigger = function (id,state,json) {
 
             console.log("it is triggered!");
             if(cancel==true){
-                console.log("it should cancel it, right?");
-                window.plugin.notification.local.cancel("test1");
-            }else{
-                if (window.confirm("Alarm : "+newDescription+" at "+alarmDate)) { 
+                console.log("Cancelling all alarm");
+                window.plugin.notification.local.cancelAll();
+            }else{//pop up the windows with ok and cancel button
+                if (window.confirm("Alarm : "+newDescription+" at "+alarmDate)) { //when the user confirms(clicking ok),math problem!
                 //randomly generate two integers between 20 to 40.
                     var oneNumber=Math.floor(Math.random() * (40 - 20) + 20);
                     var theOtherNumber=Math.floor(Math.random() * (40 - 20) + 20);
                     var answer = prompt("What's "+oneNumber+" + "+theOtherNumber+"?");
-                    if (answer == (oneNumber+theOtherNumber)) {
+                    if (answer == (oneNumber+theOtherNumber)) {// if the user answer correctly, cancel all notification we have. 
                         alert("it's correct! Welcome to your new day!");
                         cancel=true;
-                    }else{
+                    }else{//if not , keep triggered, go through ontrigger function from beginning again.
                         alert("Wrong Answer!");
                     }
                 
-                }else{
-                    console.log("not cancel");
+                }else{ //when user click cancel( user wants to snnoze )
+                    
+                    current = new Date();
+                    //just cancel the first localnotification with id 1
+                    window.plugin.notification.local.cancel('1');
+                    defaultSnooze = new Date(current.getTime()+10*1000);
+                    console.log(defaultSnooze);
+
+                    //set the second local notification with id 2
+                    window.plugin.notification.local.add({
+                    id:         "2",  // A unique id of the notifiction
+                    date:       defaultSnooze,    // This expects a date object
+                    message:    "test",  // The message that is displayed
+                    title:      "success",  // The title of the message
+                    repeat:     "secondly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
+                    badge:      1,  // Displays number badge to notification
+                    //sound:      String,  // A sound to be played
+                   // json:       (a:9),  // Data to be passed through the notification
+                    autoCancel: true, // Setting this flag and the notification is automatically canceled when the user clicks it
+                    ongoing:    false, // Prevent clearing of notification (Android only)
+                    });
                 }
             }
             console.log("cancel = "+cancel);
             
 
         };
-    
 
-        
+        document.getElementById("SnoozeButton").onclick=function(){
+            current = new Date();
+            window.plugin.notification.local.cancel('1');
+            defaultSnooze = new Date(current.getTime()+10*1000);
+            console.log(defaultSnooze);
+        /*    window.plugin.notification.local.add({
+            id:         "2",  // A unique id of the notifiction
+            date:       defaultSnooze,    // This expects a date object
+            message:    "test",  // The message that is displayed
+            title:      "success",  // The title of the message
+            repeat:     "secondly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
+            badge:      1,  // Displays number badge to notification
+            //sound:      String,  // A sound to be played
+           // json:       (a:9),  // Data to be passed through the notification
+            autoCancel: true, // Setting this flag and the notification is automatically canceled when the user clicks it
+            ongoing:    false, // Prevent clearing of notification (Android only)
+            }); */
+        }
 
-        window.plugin.notification.local.onclick = function (id, state, json) {
-            alert("test on when onclick!!!!!");
-            //when click the save button on the edit alarm page. it's onclick!
-        };
-
-            
-        
-         }
-         
+    }
 
 
 
@@ -169,30 +197,6 @@ var clockApp = (function($) {
         refreshView();
     }
     
-    function matchSeconds(element){
-        var alarmId = element.getAttribute("sid");
-        var currentHour = new Date().getHours();
-        var currentMinutes = new Date().getMinutes();
-        var currentTime = ""+currentHour+":"+currentMinutes ;
-
-        alarm = myList.getElement(alarmId);
-        if ((alarm.status == true) && (alarm.time == currentTime)){
-                    console.log("this is executing~~~~~");
-                    var my_media = new Media("/android_asset/www/OneSummerDay.mp3",
-                    // success callback
-                    function() {
-                        console.log("playAudio():Audio Success");
-                    },
-                    // error callback
-                    function(err) {
-                        console.log("playAudio():Audio Error: "+err);
-                    }
-                );
-                my_media.play();
-                 }   
-         else 
-        {console.log("it sucks")}
-    }
         
     function playAudio(url) {
     // Play the audio file at url
@@ -277,8 +281,7 @@ var clockApp = (function($) {
         editstatus: editstatus,
         editDes: editDes,
         showView: showView,
-        playAudio: playAudio,
-        matchSeconds: matchSeconds
+        playAudio: playAudio
        // localnote: localnote
     }
 
