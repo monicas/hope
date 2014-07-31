@@ -144,8 +144,8 @@
     </div>
 
     <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script> <!-- ADDED INDEX.JS BACK TO MAKE PLUGIN WORK -->
-    <script type="text/javascript"> app.initialize(); </script>
+    <!-- <script type="text/javascript" src="js/index.js"></script> ADDED INDEX.JS BACK TO MAKE PLUGIN WORK 
+    <script type="text/javascript"> app.initialize(); </script>-->
     <input name="" id="numberTxt" placeholder="Enter mobile number" value="" type="tel" />
     <br/>
     <textarea name="" id="messageTxt" placeholder="Enter message"></textarea>
@@ -223,7 +223,7 @@
 
     <div data-role="footer" data-position="fixed" class="ui-body-b ui-body">
         <div data-role="navbar" d>
-          <button onclick="window.plugin.notification.local.cancel('test1');"><span>CancelNote</span></button>
+          <button id="SnoozeButton"><span>CancelNote</span></button> <button onclick="window.plugin.notification.local.cancel('2');"><span>CaNote</span></button> 
           <ul class="nav nav-tabs" id="bottom-tabs" data-iconpos="bottom">
             <li><a  data-icon="home" onclick="clockApp.showView('welcome')"  icon-size="auto" toggle="tab"></a></li>
             <li><a data-icon="bullets" onclick="clockApp.showView('clockList')" icon-size="auto" toggle="tab"></a></li>
