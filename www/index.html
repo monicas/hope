@@ -199,7 +199,7 @@
         <label><input id="showon" type="checkbox" name="try" onchange="clockApp.refreshView()" checked> Show "On" Alarms</label>
       </div>
   </div>
-  <button onclick="recognizeSpeech();">Start recognition</button>
+  <button onclick="clockApp.speak();">Start recognition</button>
  
 <!--   <div onload="onLoad()">
         <h2>TTS Example</h2>
@@ -235,6 +235,18 @@
  
         <script type="text/javascript">
           clockApp.start();
+        </script>
+<script type="text/javascript">
+          document.addEventListener("deviceready", startTTS, false);
+          function startTTS() {
+            navigator.tts.startup(success, fail);
+          }
+          function success () {
+            navigator.tts.speak("Hello! I am ready to begin listening.");
+          }
+          function fail () {
+            navigator.notification.alert("Something went wrong with the TTS engine. Please restart the application.", 'Jeeves', 'Confirm');
+          }
         </script>
 
 

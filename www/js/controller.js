@@ -23,19 +23,52 @@ var clockApp = (function($) {
 
     
 
-    function speak(){
+function speak(){
         console.log("speak now!");
-            var maxMatches = 1;
-                var promptString = "Speak now"; // optional
-                var language = "en-US";                     // optional
-                window.plugins.speechrecognizer.startRecognize(function
-(result){
-                    alert(result);
-                }, function(errorMessage){
-                    console.log("Error message: " + errorMessage);
-                }, maxMatches, promptString, language);
-
+        var maxMatches = 1;
+        var promptString = "Speak now"; // optional
+        var language = "en-US";                     // optional
+        var prev = "";
+        window.plugins.speechrecognizer.startRecognize(function(result){
+            alert(result);
+            if(result == "add alarm")   {
+                prev = result;
+                clockApp.showView('editAlarm');
+                navigator.tts.speak("What time would you like to set the alarm for?");
+                document.freudman.freudmanAlarmTime.click();
+                console.log("success!");
+            } else if(parseInt(result) == 215)   {
+                prev = result;
+                var stupid = document.getElementById('newAlarmTime');
+                stupid.value = "2:15:00";
+                console.log("success!!");
+                navigator.tts.speak("Ok. Describe your alarm?");
+            } else if(result == "test")    {
+                prev = result;
+                var stupid = document.getElementById('newAlarmDescription');
+                stupid.value = "yo wake up!";
+                navigator.tts.speak("Sounds good. Do you want to add a contact?");
+                console.log("success!!!");
+            } else if(result == "edit phone number")   {
+                prev = result;
+                var stupid = document.getElementById('numberTxt');
+                stupid.value = "123123123";
+                navigator.tts.speak("Please edit your message");
+                console.log("success!!!!");
+            } else if(result == "edit message")    {
+                prev = result;
+                var stupid = document.getElementById('messageTxt');
+                stupid.value = "wake me up!";
+                navigator.tts.speak("Sounds good");
+                console.log("success!!!!!");
+            } else if(result == "shut up")  {
+                navigator.tts.speak("Sorry for bothering you.");
+            }
+        }, function(errorMessage){
+            console.log("Error message: " + errorMessage);
+        }, maxMatches, promptString, language);
     }
+
 
   
     function handleDeletealarm(element) {
