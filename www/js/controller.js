@@ -84,7 +84,25 @@ function speak(){
     var newTime = document.getElementById('newAlarmTime').value;
     var newDescription = document.getElementById('newAlarmDescription').value;
     var newRingTone = document.getElementById('newAlarmRingtone').value;
+    var status=document.getElementById('status').value;
+    // if(status=="off"){
+    //     status=false;
+    // }else{
+    //     status=true;
+    // }
+    var number = document.getElementById('numberTxt').value;
+    var message = document.getElementById('messageTxt').value;
     var snoozeList = [newTime,newDescription];
+
+    //print all the information of the new alarm into console here when we add a new alarm. so we can check!
+    console.log("newTime: "+newTime);
+    console.log("newDescription: "+newDescription);
+    console.log("newRingTone: "+newRingTone);
+    console.log("status: "+status);
+    console.log("number: "+number);
+    console.log("message: "+message);
+        
+
         myList.addElement({
             time: newTime,
             status: true,
@@ -92,6 +110,8 @@ function speak(){
             ringtone: newRingTone,
             snooze: [snoozeList]
         });
+        // can we get the id for this alarm in database here???? If we can, we can add the local notification
+        //with the same id. And later we can match these two much easier if we want to make any further change.
 
     var res = newTime.split(":");
         var hour=res[0];
@@ -114,49 +134,65 @@ function speak(){
         }
 
         console.log("it's working" + alarmDate);
+        
 
+        //jack just sent me!!! add another snnoze!
         window.plugin.notification.local.add({
             id:         "1",  // A unique id of the notifiction
             date:       new Date(now.getTime()+5*1000),    // This expects a date object
             message:    "test",  // The message that is displayed
-            title:      newDescription,  // The title of the message
-            repeat:     "secondly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
+            title:      "success",  // The title of the message
+            repeat:     "minutely",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
             badge:      1,  // Displays number badge to notification
-            //sound:      'android.resource://edu.brandeis.hope/raw/onesummerday',  // A sound to be played
+          //  sound:      'android.resource://'+"'edu.brandeis.monica'"+'/raw/march',  // A sound to be played
            // json:       (a:9),  // Data to be passed through the notification
             autoCancel: true, // Setting this flag and the notification is automatically canceled when the user clicks it
             ongoing:    false, // Prevent clearing of notification (Android only)
             });
-        
-            var cancel =false; //whether the whole alarm is cancelled.(including two snoozes)
+
+        var cancel =false; //whether id1 is cancelled or not.
+        var cancel2 = false; //whether id 2 is cancelled or not.
          window.plugin.notification.local.ontrigger = function (id,state,json) {
 
             console.log("it is triggered!");
+         /*   var newMedia = new Media('/android_asset/www/march');
+            if (cancel==false){newMedia.play()} else {newMedia.stop()};
+            console.log("it is triggered1231!");*/
             if(cancel==true){
-                console.log("Cancelling all alarm");
-                window.plugin.notification.local.cancelAll();
-            }else{//pop up the windows with ok and cancel button
-                if (window.confirm("Alarm : "+newDescription+" at "+alarmDate)) { //when the user confirms(clicking ok),math problem!
+                console.log("it should cancel id1 it, right?");
+                window.plugin.notification.local.cancel("1");
+               // newMedia.stop();
+                return;
+            }else{
+                if (window.confirm("Alarm : "+newDescription+" at "+alarmDate)) { //when you press ok(=cancel this alarm), you need to solve a math problem
                 //randomly generate two integers between 20 to 40.
+                    console.log("something");
                     var oneNumber=Math.floor(Math.random() * (40 - 20) + 20);
                     var theOtherNumber=Math.floor(Math.random() * (40 - 20) + 20);
                     var answer = prompt("What's "+oneNumber+" + "+theOtherNumber+"?");
-                    if (answer == (oneNumber+theOtherNumber)) {// if the user answer correctly, cancel all notification we have. 
+                    if (answer == (oneNumber+theOtherNumber)) {
                         alert("it's correct! Welcome to your new day!");
                         cancel=true;
-                    }else{//if not , keep triggered, go through ontrigger function from beginning again.
+                        return;
+                    }else{
                         alert("Wrong Answer!");
+                        return;
                     }
                 
-                }else{ //when user click cancel( user wants to snnoze )
-                    
+                }else{
+                    //when you press cancel (here,  cancel = I want to snooze)
+                    console.log("not cancel the whole alarm yet! we will cancel id1 and create id 2");
                     current = new Date();
-                    //just cancel the first localnotification with id 1
                     window.plugin.notification.local.cancel('1');
+                    cancel=true;
+                    //first it will send a message to a friend.
+                    var intent = ""; //leave empty for sending sms using default intent
+                    var success = function () { alert('Message sent successfully'); };
+                    var error = function (e) { alert('Message Failed:' + e); };
+                    sms.send(number, message, intent, success, error);
+                 //   newMedia.stop();
                     defaultSnooze = new Date(current.getTime()+10*1000);
                     console.log(defaultSnooze);
-
-                    //set the second local notification with id 2
                     window.plugin.notification.local.add({
                     id:         "2",  // A unique id of the notifiction
                     date:       defaultSnooze,    // This expects a date object
@@ -169,9 +205,47 @@ function speak(){
                     autoCancel: true, // Setting this flag and the notification is automatically canceled when the user clicks it
                     ongoing:    false, // Prevent clearing of notification (Android only)
                     });
+                    cancel = true; // need to add this to stop the infinite loop
+                    
+                    //new snooze should be here, even though I do agree it is becoming really messy
+                    window.plugin.notification.local.ontrigger = function (id,state,json){
+                        
+                        if(cancel2==true){
+                        console.log("it should cancel2 it, right?");
+                        window.plugin.notification.local.cancel("2");
+                       // newMedia.stop();
+                        return;
+                    }else{
+                        if (window.confirm("Alarm : "+newDescription+" at "+new Date(alarmDate+10*1000))) { 
+                        //randomly generate two integers between 20 to 40.
+                            console.log("something2");
+                            var oneNumber=Math.floor(Math.random() * (40 - 20) + 20);
+                            var theOtherNumber=Math.floor(Math.random() * (40 - 20) + 20);
+                            var answer = prompt("What's "+oneNumber+" + "+theOtherNumber+"?");
+                            if (answer == (oneNumber+theOtherNumber)) {
+                                alert("it's correct! Welcome to your new day!");
+                                cancel2=true;
+                                
+                            }else{
+                                alert("Wrong Answer!");
+                                
+                            }
+                        
+                        }else{//send sms again
+                            var intent = ""; //leave empty for sending sms using default intent
+                            var success = function () { alert('Message sent successfully'); };
+                            var error = function (e) { alert('Message Failed:' + e); };
+                            sms.send(number, message, intent, success, error);
+                        }
+                    } 
+
+                    }
+                    
                 }
             }
             console.log("cancel = "+cancel);
+            
+
             
 
         };
