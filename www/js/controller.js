@@ -101,22 +101,47 @@ function speak(){
     console.log("status: "+status);
     console.log("number: "+number);
     console.log("message: "+message);
-        
+    
+    //declare an object called tempElement, for user input   
+    var now = new Date(); 
+    var tempElement = {
+        time: newTime,
+        status: true,
+        description: newDescription,
+        ringtone: newRingTone,
+        snooze: [snoozeList]
+    }
+        var tempId = myList.addElement(tempElement);
 
-        myList.addElement({
-            time: newTime,
-            status: true,
-            description: newDescription,
-            ringtone: newRingTone,
-            snooze: [snoozeList]
-        });
+//declare another object
+    var updatedElement = {
+        time: newTime,
+        status: true,
+        description: newDescription,
+        ringtone: newRingTone,
+        snooze: [snoozeList],
+        localnoti: {
+            id:         tempId,  // A unique id of the notifiction
+            date:       new Date(now.getTime()+5*1000),    // This expects a date object
+            message:    "test",  // The message that is displayed
+            title:      "success",  // The title of the message
+            repeat:     "minutely",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
+            badge:      1,  // Displays number badge to notification
+          //  sound:      'android.resource://'+"'edu.brandeis.monica'"+'/raw/march',  // A sound to be played
+           // json:       (a:9),  // Data to be passed through the notification
+            autoCancel: true, // Setting this flag and the notification is automatically canceled when the user clicks it
+            ongoing:    false, // Prevent clearing of notification (Android only)
+        }
+
+    }
+        myList.updateElement(tempId,updatedElement); // update/overwrite the Element with the same Id
         // can we get the id for this alarm in database here???? If we can, we can add the local notification
         //with the same id. And later we can match these two much easier if we want to make any further change.
 
     var res = newTime.split(":");
         var hour=res[0];
         var minute=res[1];
-        var now=new Date();
+       // var now=new Date();
         var alarmDate;//final alarmDate with the right format;
         var setTimeInToday=new Date();
         setTimeInToday.setHours(hour);
@@ -137,18 +162,7 @@ function speak(){
         
 
         //jack just sent me!!! add another snnoze!
-        window.plugin.notification.local.add({
-            id:         "1",  // A unique id of the notifiction
-            date:       new Date(now.getTime()+5*1000),    // This expects a date object
-            message:    "test",  // The message that is displayed
-            title:      "success",  // The title of the message
-            repeat:     "minutely",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
-            badge:      1,  // Displays number badge to notification
-          //  sound:      'android.resource://'+"'edu.brandeis.monica'"+'/raw/march',  // A sound to be played
-           // json:       (a:9),  // Data to be passed through the notification
-            autoCancel: true, // Setting this flag and the notification is automatically canceled when the user clicks it
-            ongoing:    false, // Prevent clearing of notification (Android only)
-            });
+        window.plugin.notification.local.add(updatedElement.localnoti); //the parameters are grabbed from localnoti field in side updatedElement
 
         var cancel =false; //whether id1 is cancelled or not.
         var cancel2 = false; //whether id 2 is cancelled or not.
@@ -184,7 +198,6 @@ function speak(){
                     console.log("not cancel the whole alarm yet! we will cancel id1 and create id 2");
                     current = new Date();
                     window.plugin.notification.local.cancel('1');
-
                     cancel=true;
                     //first it will send a message to a friend.
                     var intent = ""; //leave empty for sending sms using default intent
@@ -231,13 +244,12 @@ function speak(){
                                 alert("Wrong Answer!");
                                 
                             }
-  
+                        
                         }else{//send sms again
                             var intent = ""; //leave empty for sending sms using default intent
                             var success = function () { alert('Message sent successfully'); };
                             var error = function (e) { alert('Message Failed:' + e); };
                             sms.send(number, message, intent, success, error);
->>>>>>> d30d1ef54f344e79894b8b9288bf2aec1d931d14
                         }
                     } 
 
@@ -319,25 +331,8 @@ function speak(){
             console.log("playAudio():Audio Error: "+err);
         }
     );
-
-    
-
     my_media.play();
 }
-
-    function stopMusic(url) {
-        var my_media = new Media(url,
-        // success callback
-        function() {
-            console.log("playAudio():Audio Success");
-        },
-        // error callback
-        function(err) {
-            console.log("playAudio():Audio Error: "+err);
-        }
-    );
-        my_media.stop();
-    }
 
     function editDes(element){
         var alarmId = element.getAttribute("sid");
@@ -414,6 +409,3 @@ function speak(){
     return (clockApp);
 
 }(jQuery));
-
-
-

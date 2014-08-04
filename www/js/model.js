@@ -51,8 +51,10 @@ ClockList.prototype.addElement = function(newalarm){
         data: JSON.stringify(newalarm),
         contentType: "application/json; charset=utf-8",
         dataType: "json"
-    }).done(function(alarms) {
+    }).done(function(alarm) {
         myList.loadModel();
+        console.log("id" + alarm["_id"]);
+        return alarm["_id"]; //return the id of the new alarm
     });
 }
 
