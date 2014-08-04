@@ -4,6 +4,7 @@
   <title>Smart clock</title>
   <link href="css/bootstrap.css" rel="stylesheet" />
   <link href="css/bootstrap-theme.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
   <script src="js/jquery-2.1.1.min.js"></script>
   <script src="js/model.js"></script>
@@ -26,7 +27,6 @@
 
   <script src='js/tts.js'></script>
   <script src='js/jquery-ui.custom.min.js'></script>
-  
 
   <!--for file read -->
   <script LANGUAGE="JavaScript">
@@ -136,22 +136,72 @@
 
     <!-- form to fill out -->
     <div class="panel panel-info">
+      <script type="text/javascript" src="cordova.js"></script>
+
       <label>Time:</label>
       <input type="time" class="form-control" id="newAlarmTime">
       <label>Description:</label>
       <input type="text" class="form-control" id="newAlarmDescription" placeholder="Enter new alarms here" />
-      <label>Ringtone:</label>
-      <input type="text" class="form-control" id="newAlarmRingtone" placeholder="Choose ringtones here" />
+      <form>
+            <ul class="snooze" id="editSnooze-view" class="view" data-role="listview" data-insert="true">
+              <!--Ringtone place-->
+              <li class="ui-field-contain">
+                  <label for="Ringtone">Ringtone: </label>
+                  <input type="url" name="ringtone" id="newAlarmRingtone" preload="auto" src="http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3">
+              </li>
+
+              <!--Volume control-->
+              <li class="ui-field-contain">
+                  <label for="volume" class="ui-hidden-accessible">Volume:</label>
+                    <input class="full-width-slider" type="range" name="volume" id="volume" value="50" min="0" max="100" data-highlight="true">
+              </li>
+
+              <!--Place to add phone number-->
+              <li class="ui-field-contain">
+                <label for="Contacts">Contacts: </label>
+                <input id="numberTxt" placeholder="Enter contact's number" value="" type="tel" placeholder="Enter contact's number">
+              </li>
+              
+              <!--Text area for Snooze 1-->
+              <li class="ui-field-contain">
+                <label for="Text">Textmessage:</label>
+                <textarea cols="40" rows="8" name="textarea2" id="messageTxt" placeholder="Enter message for snooze 1 here."></textarea>
+              </li>
+
+              <!-- On/off status-->
+              <li class="ui-field-contain">
+                <select name="status" id="status" data-role="slider">
+                  <option value="off">Off</option>
+                  <option value="on">On</option>
+                 </select>
+              </li>
+
+              <!-- Cancel/Submit Snooze-list Form-->
+ <!--              <li class="ui-body ui-body-b">
+                <fieldset class="ui-grid-a">
+                  <div class="ui-block-a">
+                    <button class="btn btn-default" id="cancelAlarm" onclick="clockApp.showView('clockList')">Cancel</button>
+                  </div>
+
+                  <div class="ui-block-b">
+                    <button class="btn btn-default" id="addAlarm" onclick="clockApp.addalarm(), clockApp.showView('clockList')">Save</button>
+                  </div>
+                </fieldset>
+              </li> -->
+            </ul>
+          </form>
+      <!-- <label>Ringtone:</label>
+      <input type="text" class="form-control" id="newAlarmRingtone" placeholder="Choose ringtones here" /> -->
     </div>
 
-    <script type="text/javascript" src="cordova.js"></script>
+    <!-- <script type="text/javascript" src="cordova.js"></script>
     <!-- <script type="text/javascript" src="js/index.js"></script> ADDED INDEX.JS BACK TO MAKE PLUGIN WORK 
     <script type="text/javascript"> app.initialize(); </script>-->
-    <input name="" id="numberTxt" placeholder="Enter mobile number" value="" type="tel" />
+   <!--  <input name="" id="numberTxt" placeholder="Enter mobile number" value="" type="tel" />
     <br/>
     <textarea name="" id="messageTxt" placeholder="Enter message"></textarea>
     <br/>
-    <button class="btn btn-default" id="btnDefaultSMS">Send</button>
+    <button class="btn btn-default" id="btnDefaultSMS">Send</button> -->
 
     <button class="btn btn-default" id="addAlarm" onclick="clockApp.addalarm(), clockApp.showView('clockList')">Save</button>
     <button class="btn btn-default" id="cancelAlarm" onclick="clockApp.showView('clockList')">Cancel</button>
@@ -175,39 +225,33 @@
     <span><a href="add"><img src="add.png" onclick="clockApp.showView('about')" width="50" height="50" alight="right"></a></span>
     <span><button id="plusBtn" class="btn btn-default" onclick="clockApp.showView('toggle')">+</button>
   </span> --> 
-  <div>
+<!--   <div>
     <form>
       <input type="button" data-role="none" value="+" onclick="clockApp.showView('editAlarm')">
       <input type="reset" data-role="none" value="Reload" onclick="clockApp.reloadModel()">
     </form>
-  </div>
+  </div> -->
+      <div data-role="header" data-position="fixed" data-fullscreen="true" data-rel="dialog" height="9mm" data-tap-toggle="false">
+        <a href="index.html" data-icon="refresh" data-theme="b" data-iconpos="left" onclick="clockApp.refreshView()" data-inline="true">Refresh</a>
+        <h1>Clock List</h1>
+        <a href="#" data-icon="plus" data-theme="b" data-iconpos="right" onclick="clockApp.showView('editAlarm')" data-inline="true">Alarm</a>
+    </div>
 
-  
 
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Status</th>
-            <th>Description</th>
-            <th>Remove</th>
-          </tr>
-        </thead>
-        <tbody id="alarmTableBody"></tbody>
-      </table>
+    <ul data-role="listview" data-insert="true" >
+        <li data-role="list-divider">August 7, 2013<span type="checkbox"></span>
+      </li>
+    </ul>
+    <ul data-role="listview" data-insert="true" id="alarmTableBody">
+    </ul>
 
       <div class="checkbox-inline">
         <label><input id="showon" type="checkbox" name="try" onchange="clockApp.refreshView()" checked> Show "On" Alarms</label>
       </div>
+
   </div>
-  <button onclick="recognizeSpeech();">Start recognition</button>
+  <button onclick="clockApp.speak();">Start recognition</button>
  
-<!--   <div onload="onLoad()">
-        <h2>TTS Example</h2>
-  <input id="playMe" type="text"/><br/>
-  <select id="langs" onchange="changeLang()"></select>
-    <button onclick="speak();">Speak</button>
-  </div> -->
 
 
   
@@ -236,6 +280,18 @@
  
         <script type="text/javascript">
           clockApp.start();
+        </script>
+<script type="text/javascript">
+          document.addEventListener("deviceready", startTTS, false);
+          function startTTS() {
+            navigator.tts.startup(success, fail);
+          }
+          function success () {
+            navigator.tts.speak("Hello! I am ready to begin listening.");
+          }
+          function fail () {
+            navigator.notification.alert("Something went wrong with the TTS engine. Please restart the application.", 'YoWakeUp', 'Confirm');
+          }
         </script>
 
 

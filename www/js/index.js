@@ -44,7 +44,7 @@ var app = {
             sms.send(number, message, intent, success, error);
         });*/
 
-    },
+        
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
