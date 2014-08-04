@@ -89,36 +89,46 @@ var clockApp = (function($) {
             title:      "success",  // The title of the message
             repeat:     "secondly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
             badge:      1,  // Displays number badge to notification
-            //sound:      'android.resource://edu.brandeis.hope/raw/onesummerday',  // A sound to be played
+          //  sound:      'android.resource://'+"'edu.brandeis.monica'"+'/raw/march',  // A sound to be played
            // json:       (a:9),  // Data to be passed through the notification
             autoCancel: true, // Setting this flag and the notification is automatically canceled when the user clicks it
             ongoing:    false, // Prevent clearing of notification (Android only)
             });
 
         var cancel =false;
+        var cancel2 = false;
          window.plugin.notification.local.ontrigger = function (id,state,json) {
 
             console.log("it is triggered!");
+         /*   var newMedia = new Media('/android_asset/www/march');
+            if (cancel==false){newMedia.play()} else {newMedia.stop()};
+            console.log("it is triggered1231!");*/
             if(cancel==true){
                 console.log("it should cancel it, right?");
-                window.plugin.notification.local.cancelAll();
+                window.plugin.notification.local.cancel("1");
+               // newMedia.stop();
+                return;
             }else{
                 if (window.confirm("Alarm : "+newDescription+" at "+alarmDate)) { 
                 //randomly generate two integers between 20 to 40.
+                    console.log("something");
                     var oneNumber=Math.floor(Math.random() * (40 - 20) + 20);
                     var theOtherNumber=Math.floor(Math.random() * (40 - 20) + 20);
                     var answer = prompt("What's "+oneNumber+" + "+theOtherNumber+"?");
                     if (answer == (oneNumber+theOtherNumber)) {
                         alert("it's correct! Welcome to your new day!");
                         cancel=true;
+                        return;
                     }else{
                         alert("Wrong Answer!");
+                        return;
                     }
                 
                 }else{
                     console.log("not cancel");
                     current = new Date();
                     window.plugin.notification.local.cancel('1');
+                 //   newMedia.stop();
                     defaultSnooze = new Date(current.getTime()+10*1000);
                     console.log(defaultSnooze);
                     window.plugin.notification.local.add({
@@ -133,6 +143,38 @@ var clockApp = (function($) {
                     autoCancel: true, // Setting this flag and the notification is automatically canceled when the user clicks it
                     ongoing:    false, // Prevent clearing of notification (Android only)
                     });
+                    cancel = true; // need to add this to stop the infinite loop
+                    
+                    //new snooze should be here, even though I do agree it is becoming really messy
+                    window.plugin.notification.local.ontrigger = function (id,state,json){
+                        
+                        if(cancel2==true){
+                        console.log("it should cancel2 it, right?");
+                        window.plugin.notification.local.cancel("2");
+                       // newMedia.stop();
+                        return;
+                    }else{
+                        if (window.confirm("Alarm : "+newDescription+" at "+new Date(alarmDate+10*1000))) { 
+                        //randomly generate two integers between 20 to 40.
+                            console.log("something2");
+                            var oneNumber=Math.floor(Math.random() * (40 - 20) + 20);
+                            var theOtherNumber=Math.floor(Math.random() * (40 - 20) + 20);
+                            var answer = prompt("What's "+oneNumber+" + "+theOtherNumber+"?");
+                            if (answer == (oneNumber+theOtherNumber)) {
+                                alert("it's correct! Welcome to your new day!");
+                                cancel2=true;
+                                
+                            }else{
+                                alert("Wrong Answer!");
+                                
+                            }
+                        
+                        }else{// add sms here?
+                        }
+                    } 
+
+                    }
+                    
                 }
             }
             console.log("cancel = "+cancel);
@@ -206,8 +248,25 @@ var clockApp = (function($) {
             console.log("playAudio():Audio Error: "+err);
         }
     );
+
+    
+
     my_media.play();
 }
+
+    function stopMusic(url) {
+        var my_media = new Media(url,
+        // success callback
+        function() {
+            console.log("playAudio():Audio Success");
+        },
+        // error callback
+        function(err) {
+            console.log("playAudio():Audio Error: "+err);
+        }
+    );
+        my_media.stop();
+    }
 
     function editDes(element){
         var alarmId = element.getAttribute("sid");
