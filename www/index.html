@@ -65,16 +65,8 @@
   <div data-role="header" style="overflow:hidden;" class="ui-body-b ui-body">
     <span><a href="/"><img src="logo.jpg" alt="company logo" width="200" height="115"></a>  <!--taken from selfmadehero.com. Property of Wake Up Productions--> </span>
     <span>Yo! Wake up!!</span>
-      <a href="" data-icon="gear" class="ui-btn-right">Options</a>
-      <a href="" data-icon="refresh" onclick="clockApp.reloadModel()" width="50" height="50" ></a>
-      <a href="" data-icon="plus" onnclick="clockApp.showView('about')" width="50" height="50" ></a>
   </div><!-- /header -->
 
-  <div class="container">
-    <div class="page-header">
-
-    </div>
-  </div>
 
   <div id="welcome-view" class="view">
     <h1>
@@ -143,7 +135,7 @@
       <label>Description:</label>
       <input type="text" class="form-control" id="newAlarmDescription" placeholder="Enter new alarms here" />
       <form>
-            <ul class="snooze" id="editSnooze-view" class="view" data-role="listview" data-insert="true">
+            <ul class="snooze" id="editSnooze-view" class="view" data-role="listview" data-inset="true">
               <!--Ringtone place-->
               <li class="ui-field-contain">
                   <label for="Ringtone">Ringtone: </label>
@@ -238,11 +230,11 @@
     </div>
 
 
-    <ul data-role="listview" data-insert="true" >
+    <ul data-role="listview" data-inset="true" >
         <li data-role="list-divider">August 7, 2013<span type="checkbox"></span>
       </li>
     </ul>
-    <ul data-role="listview" data-insert="true" id="alarmTableBody">
+    <ul data-role="listview" data-inset="true" id="alarmTableBody">
     </ul>
 
       <div class="checkbox-inline">
