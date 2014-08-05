@@ -7,7 +7,7 @@
 **/
 
 function ClockList() {
-	this.user = "Your";
+    this.user = "Your";
     this.cutoff = 0;
     this.alarms = [];
 
@@ -51,8 +51,10 @@ ClockList.prototype.addElement = function(newalarm){
         data: JSON.stringify(newalarm),
         contentType: "application/json; charset=utf-8",
         dataType: "json"
-    }).done(function(alarms) {
+    }).done(function(alarm) {
         myList.loadModel();
+        console.log("id" + alarm["_id"]);
+        return alarm["_id"]; //return the id of the new alarm
     });
 }
 
@@ -78,15 +80,3 @@ ClockList.prototype.deleteElement = function(id){
         myList.loadModel();
     });
 }
-
-
-$.ajax({
-  url: "/api/getWeather",
-  data: {
-    zipcode: 97201
-  },
-  success: function( data ) {
-    $( "#weather-temp" ).html( "<strong>" + data + "</strong> degrees" );
-  }
-});
-

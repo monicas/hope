@@ -34,7 +34,7 @@ body {
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
     background-color:#E4E4E4;
-    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:url('background.png')!important no-repeat 0 0 scroll; /*linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);  */
     background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     background-image:-webkit-gradient(
@@ -66,6 +66,7 @@ body {
     padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
     margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
                                    /* offset horizontal: half of text area width */
+    background-color: #99CCFF;
 }
 
 /* Landscape layout (with min-width) */
@@ -78,12 +79,12 @@ body {
     }
 }
 
-h1 {
-    font-size:24px;
+h1 {       /*Controls headers like Contacts, YO!Wake up!*/
+    font-size:28px;
     font-weight:normal;
     margin:0px;
     overflow:visible;
-    padding:0px;
+    padding:40px;
     text-align:center;
 }
 
@@ -91,6 +92,37 @@ div p a img {
     width:200;
     height:120;
 }
+
+/* Yuya's code*/
+html {
+    background-image: url('background.png')!important no-repeat 0 0 scroll;
+    background-color: transparent!important;
+    background-repeat:repeat-y;
+    background-position:center center;
+    background-attachment:scroll;
+    background-size:100% 100%;
+}
+
+.view {
+
+    background-image: url('background.png')!important no-repeat 0 0 scroll;
+    background-color: transparent!important;
+    background-repeat:repeat-y;
+    background-position:center center;
+    background-attachment:scroll;
+    background-size:100% 100%;
+}
+
+
+
+.ui-page {
+    background: transparent;
+}
+.ui-content{
+    background: transparent;
+}
+
+.view 
 
 .tablist li a{
     display:block;

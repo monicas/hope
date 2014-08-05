@@ -10,7 +10,7 @@ head {
 }
 
 div# {
-    font: 18px/1.5 "Times New Roman", times, serif;
+    font: 18px/1.5 Arial, times, serif;
     padding: 30px 10px;
     border: 1px black solid;
     border-width: 1px 5px 5px 1px;
@@ -444,6 +444,3 @@ li {-moz-border-radius: 12px 12px 0 0; /* FF1+ */
 
 
 /*  Yuya's CSS*/
-.nav-tabs {
-
-}

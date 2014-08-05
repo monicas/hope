@@ -1,4 +1,3 @@
-
 /**
  The clockView is responsible for updating all of the HTML
  It is called by the clockApp only and the only thing it calls is jQuery
@@ -80,20 +79,30 @@ var clockView = (function($){
     function alarmToRow(alarm){
         var checkValue = alarm.status ? "checked" : "unchecked";
         var row = 
-        "<tr><td>"+"<input type='time' value='"+alarm.time+"' sid='"+alarm.id+"' onchange='clockApp.editTime(this);clockApp.matchSeconds(this);'>"+
-        "</td><td>"+"<input type='checkbox'"+checkValue+" id='changestatus'"+alarm.id+"' sid='"+alarm.id+"' onchange='clockApp.editstatus(this)'>"+
-        "</td><td>"+"<input type='text' value='"+alarm.description+"' sid='"+alarm.id+"' onchange='clockApp.editDes(this)'>"+
-        "</td><td>"+"<input type='button'  sid='"+alarm.id+"' onclick='clockApp.handleDeletealarm(this)'>"+
-        "</td></tr>";
+        // "<tr><td>"+"<input type='time' value='"+alarm.time+"' sid='"+alarm.id+"' onchange='clockApp.editTime(this)'>"+
+        // "</td><td>"+ "<input type='checkbox' "+checkValue+" id='changestatus"+alarm.id+"' sid='"+alarm.id+"' onchange='clockApp.editstatus(this)'>"+
+        // "</td><td>"+"<input type='text' value='"+alarm.description+"' sid='"+alarm.id+"' onchange='clockApp.editDes(this)'>"+
+        // "</td><td>"+"<input type='button'  sid='"+alarm.id+"' onclick='clockApp.handleDeletealarm(this)'>"+
+        // "</td></tr>";
+
+
+        "<li>"+
+        "<a  onclick=\"clockApp.showView('editAlarm')\">"+
+          "<h2>"+alarm.time+"</h2>"+
+          
+          "<p>"+"contact should go here"+"</p>"+
+          "<p>"+"Message should go here"+"</p>"+
+            "<p class='ui-li-aside'>"+"<strong>"+"<input type='checkbox' "+checkValue+" id='changestatus"+alarm.id+"' sid='"+alarm.id+"' onchange='clockApp.editstatus(this)'>"+"</strong>"+"</p>"+
+            
+        "</a>"+
+      "</li>";
+      console.log(row);
         return row;
     }
+
+
     
 
-
-
-    
-
-    
 
     
     clockView={
