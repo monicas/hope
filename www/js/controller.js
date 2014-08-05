@@ -297,7 +297,7 @@ function speak(){
         alarm = myList.getElement(alarmId);
         alarm.time = alarmVal;
         var alarmCurrentTime = alarm.localnoti.date;
-        var updatedTime = new Date(alarmCurrentTime+)
+        var updatedTime = new Date(alarmCurrentTime)
         myList.updateElement(alarm.id,alarm);
         refreshView();
         
