@@ -376,8 +376,9 @@ function speak(){
     function start() {
         myList.loadModel();
         console.log("myList = " + JSON.stringify(myList));
+        alert("Hi, I am a social, interactive alarm clock. Just make an alarm and I will try to make sure you're awake! Customize me and send a text to your friends on snoozes.");
         clockView.refreshView(myList);
-        showView("welcome");
+        showView("clockList");
 
 
     }
