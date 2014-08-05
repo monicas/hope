@@ -145,7 +145,7 @@ function speak(){
         localnoti: {
             id:         tempId,  // A unique id of the notifiction
             date:       new Date(now.getTime()+5*1000),    // This expects a date object
-            message:    "test",  // The message that is displayed
+            message:    "Alarm at " + alarmDate, // The message that is displayed
             title:      "success",  // The title of the message
             repeat:     "minutely",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
             badge:      1,  // Displays number badge to notification
@@ -164,7 +164,7 @@ function speak(){
 
         var cancel =false; //whether id1 is cancelled or not.
         var cancel2 = false; //whether id 2 is cancelled or not.
-         window.plugin.notification.local.ontrigger = function (id,state,json) {
+        window.plugin.notification.local.ontrigger = function (id,state,json) {
 
             console.log("it is triggered!");
          /*   var newMedia = new Media('/android_asset/www/march');
@@ -209,7 +209,7 @@ function speak(){
 
                     id:         tempId,  // A unique id of the notifiction
                     date:       defaultSnooze,    // This expects a date object
-                    message:    "test",  // The message that is displayed
+                    message:    "Alarm at " + defaultSnooze,  // The message that is displayed
                     title:      "success",  // The title of the message
                     repeat:     "secondly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
                     badge:      1,  // Displays number badge to notification
@@ -293,10 +293,22 @@ function speak(){
         alarm = myList.getElement(alarmId);
         alarm.time = alarmVal;
         var alarmCurrentTime = alarm.localnoti.date;
-        var updatedTime = new Date(alarmCurrentTime)
+        var updatedTime = new Date(alarm.time);
         myList.updateElement(alarm.id,alarm);
         refreshView();
-        
+        window.plugin.notification.local.cancel(alarmId);
+        window.plugin.notification.local.add({
+            id:         alarmId,  // A unique id of the notifiction
+            date:       updatedTime,   // This expects a date object
+            message:    "Alarm at" + updatedTime,  // The message that is displayed
+            title:      "success",  // The title of the message
+            repeat:     "secondly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
+            badge:      1,  // Displays number badge to notification
+            //sound:      String,  // A sound to be played
+           // json:       (a:9),  // Data to be passed through the notification
+            autoCancel: true, // Setting this flag and the notification is automatically canceled when the user clicks it
+            ongoing:    false, // Prevent clearing of notification (Android only)
+            });
     }
     
     function editstatus(element){

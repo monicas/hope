@@ -237,11 +237,14 @@
 
   </div>
 
-
-  <button onclick="clockApp.speak();">Activate Voice</button>
-
-  
   <script src='js/speechRecognition.js'></script>
+
+  <script type="text/javascript">
+    function callSpeech() {
+      speak();
+    }
+  </script>
+   <button onclick="callSpeech();">Activate Voice</button>
 </body>
 
   <script>
