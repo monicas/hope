@@ -101,6 +101,28 @@ function speak(){
     console.log("status: "+status);
     console.log("number: "+number);
     console.log("message: "+message);
+
+     var res = newTime.split(":");
+        var hour=res[0];
+        var minute=res[1];
+       // var now=new Date();
+        var alarmDate;//final alarmDate with the right format;
+        var setTimeInToday=new Date();
+        setTimeInToday.setHours(hour);
+        setTimeInToday.setMinutes(minute);
+        setTimeInToday.setSeconds(0);
+        if(now>setTimeInToday){
+            //this time is past today, we need to set it for next day.
+            alarmDate=new Date(now.getTime()+1000*60*60*24);
+            alarmDate.setHours(hour);
+            alarmDate.setMinutes(minute);
+            alarmDate.setSeconds(0);
+        }else{
+            //this time is not past today, we need to set it for today.
+            alarmDate=setTimeInToday;
+        }
+
+        console.log("it's working" + alarmDate);
     
     //declare an object called tempElement, for user input   
     var now = new Date(); 
@@ -137,30 +159,6 @@ function speak(){
         myList.updateElement(tempId,updatedElement); // update/overwrite the Element with the same Id
         // can we get the id for this alarm in database here???? If we can, we can add the local notification
         //with the same id. And later we can match these two much easier if we want to make any further change.
-
-    var res = newTime.split(":");
-        var hour=res[0];
-        var minute=res[1];
-       // var now=new Date();
-        var alarmDate;//final alarmDate with the right format;
-        var setTimeInToday=new Date();
-        setTimeInToday.setHours(hour);
-        setTimeInToday.setMinutes(minute);
-        setTimeInToday.setSeconds(0);
-        if(now>setTimeInToday){
-            //this time is past today, we need to set it for next day.
-            alarmDate=new Date(now.getTime()+1000*60*60*24);
-            alarmDate.setHours(hour);
-            alarmDate.setMinutes(minute);
-            alarmDate.setSeconds(0);
-        }else{
-            //this time is not past today, we need to set it for today.
-            alarmDate=setTimeInToday;
-        }
-
-        console.log("it's working" + alarmDate);
-        
-
         //jack just sent me!!! add another snnoze!
         window.plugin.notification.local.add(updatedElement.localnoti); //the parameters are grabbed from localnoti field in side updatedElement
 
@@ -174,7 +172,7 @@ function speak(){
             console.log("it is triggered1231!");*/
             if(cancel==true){
                 console.log("it should cancel id1 it, right?");
-                window.plugin.notification.local.cancel("1");
+                window.plugin.notification.local.cancel(tempId);
                // newMedia.stop();
                 return;
             }else{
@@ -197,7 +195,7 @@ function speak(){
                     //when you press cancel (here,  cancel = I want to snooze)
                     console.log("not cancel the whole alarm yet! we will cancel id1 and create id 2");
                     current = new Date();
-                    window.plugin.notification.local.cancel('1');
+                    window.plugin.notification.local.cancel(tempId);
                     cancel=true;
                     //first it will send a message to a friend.
                     var intent = ""; //leave empty for sending sms using default intent
@@ -208,7 +206,8 @@ function speak(){
                     defaultSnooze = new Date(current.getTime()+10*1000);
                     console.log(defaultSnooze);
                     window.plugin.notification.local.add({
-                    id:         "2",  // A unique id of the notifiction
+
+                    id:         tempId,  // A unique id of the notifiction
                     date:       defaultSnooze,    // This expects a date object
                     message:    "test",  // The message that is displayed
                     title:      "success",  // The title of the message
@@ -226,7 +225,7 @@ function speak(){
                         
                         if(cancel2==true){
                         console.log("it should cancel2 it, right?");
-                        window.plugin.notification.local.cancel("2");
+                        window.plugin.notification.local.cancel(tempId);
                        // newMedia.stop();
                         return;
                     }else{
@@ -286,8 +285,6 @@ function speak(){
     }
 
 
-
-
     function editTime(element){
         var alarmId = element.getAttribute("sid");
         var alarmVal = element.value;
@@ -295,6 +292,8 @@ function speak(){
         console.log("alarm "+alarmId+" has value "+alarmVal);
         alarm = myList.getElement(alarmId);
         alarm.time = alarmVal;
+        var alarmCurrentTime = alarm.localnoti.date;
+        var updatedTime = new Date(alarmCurrentTime)
         myList.updateElement(alarm.id,alarm);
         refreshView();
         

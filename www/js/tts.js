@@ -3,7 +3,7 @@
         // When result is equal to STARTED we are ready to play
         if (result == TTS.STARTED) {
             window.plugins.tts.getLanguage(win, fail);
-            // window.plugins.tts.speak("The text to speech service is ready");
+   //          window.plugins.tts.speak("The text to speech service is ready");
    //          window.plugins.tts.isLanguageAvailable("en_US", function() {
    //              addLang("en_US", "English (American)");
    //          }, fail);

@@ -1,8 +1,3 @@
-     
-
-            
-
-
 
         function onDeviceReady(){
                 console.log("Device is ready");
