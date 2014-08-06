@@ -35,6 +35,8 @@ var clockApp = (function($) {
     var newDescription = document.getElementById('newAlarmDescription').value;
     var newRingTone = document.getElementById('newAlarmRingtone').value;
     var status=document.getElementById('status').value;
+    var contactValue=document.getElementById('numberTxt').value;
+    var messageValue=document.getElementById('messageTxt').value;
     // if(status=="off"){
     //     status=false;
     // }else{
@@ -81,7 +83,9 @@ var clockApp = (function($) {
         status: true,
         description: newDescription,
         ringtone: newRingTone,
-        snooze: [snoozeList]
+        snooze: [snoozeList],
+        contact: contactValue,
+        message: messageValue
     }
         var tempId = myList.addElement(tempElement);
 
@@ -92,12 +96,14 @@ var clockApp = (function($) {
         description: newDescription,
         ringtone: newRingTone,
         snooze: [snoozeList],
+        contact: contactValue,
+        message: messageValue,
         localnoti: {
             id:         tempId,  // A unique id of the notifiction
-            date:       new Date(now.getTime()+5*1000),    // This expects a date object
+            date:       alarmDate,    // This expects a date object
             message:    "Alarm at " + alarmDate, // The message that is displayed
             title:      "success",  // The title of the message
-            repeat:     "minutely",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
+            repeat:     "secondly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
             badge:      1,  // Displays number badge to notification
           //  sound:      'android.resource://'+"'edu.brandeis.monica'"+'/raw/march',  // A sound to be played
            // json:       (a:9),  // Data to be passed through the notification
@@ -122,7 +128,7 @@ var clockApp = (function($) {
             console.log("it is triggered1231!");*/
             if(cancel==true){
                 console.log("it should cancel id1 it, right?");
-                window.plugin.notification.local.cancel(tempId);
+                window.plugin.notification.local.cancel(id);
                // newMedia.stop();
                 return;
             }else{
@@ -145,7 +151,7 @@ var clockApp = (function($) {
                     //when you press cancel (here,  cancel = I want to snooze)
                     console.log("not cancel the whole alarm yet! we will cancel id1 and create id 2");
                     current = new Date();
-                    window.plugin.notification.local.cancel(tempId);
+                    window.plugin.notification.local.cancel(id);
                     cancel=true;
                     //first it will send a message to a friend.
                     var intent = ""; //leave empty for sending sms using default intent
@@ -175,7 +181,7 @@ var clockApp = (function($) {
                         
                         if(cancel2==true){
                         console.log("it should cancel2 it, right?");
-                        window.plugin.notification.local.cancel(tempId);
+                        window.plugin.notification.local.cancel(id);
                        // newMedia.stop();
                         return;
                     }else{
@@ -213,24 +219,6 @@ var clockApp = (function($) {
 
         };
 
-        document.getElementById("SnoozeButton").onclick=function(){
-            current = new Date();
-            window.plugin.notification.local.cancel('1');
-            defaultSnooze = new Date(current.getTime()+10*1000);
-            console.log(defaultSnooze);
-        /*    window.plugin.notification.local.add({
-            id:         "2",  // A unique id of the notifiction
-            date:       defaultSnooze,    // This expects a date object
-            message:    "test",  // The message that is displayed
-            title:      "success",  // The title of the message
-            repeat:     "secondly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
-            badge:      1,  // Displays number badge to notification
-            //sound:      String,  // A sound to be played
-           // json:       (a:9),  // Data to be passed through the notification
-            autoCancel: true, // Setting this flag and the notification is automatically canceled when the user clicks it
-            ongoing:    false, // Prevent clearing of notification (Android only)
-            }); */
-        }
 
     }
 

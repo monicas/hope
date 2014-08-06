@@ -31,6 +31,7 @@ function speak(){
         if(flag_description)    {
             description = document.getElementById('newAlarmDescription');
             description.value = result;
+            navigator.tts.speak("The alarm description says " + description);
             flag_description = false;
             flag_error = false;
         }
@@ -60,9 +61,6 @@ function speak(){
                     minutes = result[0].substring(2,4);
                 }
                 var flag_am_pm = true; // am is true; pm is false
-                if(am_pm == "p.m.")  {
-                    flag_am_pm = false;
-                }
                 if(flag_am_pm)   {
                     if(result[0].charAt(0) != "1")  {
                         hours = "0" + result[0].charAt(0);
@@ -82,12 +80,14 @@ function speak(){
                         } else if(result[0].substring(0, 2) == "10" || result[0].substring(0, 2) == "11")    {
                             hours = result[0].substring(0, 2);
                         }
-                        hours.toString();
                     }
-                    if(flag_am_pm)  {
+                    if(result[0].substring(result[0].length - 4, result[0].length) == "a.m.")  {
                         am_pm = "AM";
                     } else {
                         am_pm = "PM";
+                        hours = parseInt(hours) + 12;
+                        hours.toString();
+                        console.log(hours);
                     }
                 }
                 time = hours + ":" + minutes;
@@ -129,26 +129,29 @@ function speak(){
                  flag_save = false;
                  clockApp.addalarm();
             }
-            if(result == "add alarm")   {
+            if(result == "add alarm" || result == "set alarm")   {
                 clockApp.showView('editAlarm');
                 navigator.tts.speak("What time do you want to set the alarm for?");
-            } else if(result == "change time") {
+            } else if(result == "change time" || result == "set time") {
                 flag_time = true;
                 speak();
                 flag_error = false;
-            } else if(result == "change description")    {
+            } else if(result == "change description" || result == "set description" || result == "add description")    {
                 flag_description = true;
                 speak();
                 flag_error = false;
-            } else if(result == "add reminder message" || result == "edit reminder message")    {
+            } else if(result == "add reminder message" || result == "edit reminder message" || result == "set reminder message" || result == "add message")    {
                 flag_message = true;
                 speak();
                 flag_error = false;
-            } else if(result == "add contact" || result == "edit contact")  {
+            } else if(result == "add contact" || result == "edit contact" || result == "set contact" || result == "change contact")  {
                 flag_contact = true;
                 speak();
                 flag_error = false;
-            } else if(result == "change ringtone")  {
+            } else if(result == "help" || result == "help me" || result == "please help" || result == "help me please")  {
+                clockApp.showView('about');
+                navigator.tts.speak("You can check out some speech commands by clicking the Speech Commands button");
+            } else if(result == "change ringtone" || result == "set ringtone")  {
                 flag_ringtone = true;
                 speak();
                 flag_error = false;

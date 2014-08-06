@@ -87,11 +87,12 @@ var clockView = (function($){
 
 
         "<li>"+
-        "<a  onclick=\"clockApp.showView('editAlarm')\">"+
+        "<a>"+
             "<h2>"+alarm.time+"</h2>"+
-            "<p>"+"contact should go here"+"</p>"+
-            "<p>"+"Message should go here"+"</p>"+
-            "<p class='ui-li-aside'>"+"<strong>"+"<input type='checkbox' "+checkValue+" id='changestatus"+alarm.id+"' sid='"+alarm.id+"' onchange='clockApp.editstatus(this)'>"+"</strong>"+"</p>"+
+            "<p>"+"contact: " + alarm.contact+"</p>"+
+            "<p>"+"message: " + alarm.message+"</p>"+
+            "<p class='ui-li-aside'>"+"<strong>"+"<input type='checkbox' "+checkValue+" id='changestatus"+alarm.id+"' sid='"+alarm.id+"' onchange='clockApp.editstatus(this)'>"+"</strong>"+
+            "<span>" + "<input type ='button' id='deleteAlarm'" + alarm.id + "' sid='" + alarm.id + "' onclick='clockApp.handleDeletealarm(this)'>"+"</span>"+"</p>"+
         "</a>"+
       "</li>";
       console.log(row);

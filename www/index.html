@@ -93,6 +93,18 @@
           <li>How do you edit a reminder?</li>
         </ul>
       </li>
+      <li data-role="collapsible" data-iconpos="right" data-shadow="false" data-corners="false">
+        <h2>Speech Commands</h2>
+        <ul data-role="listview" data-shadow="false" data-inset="true" data-corners="false">
+          <li>Add alarm</li>
+          <li>Change time, set time</li>
+          <li>Add reminder message, edit reminder message, change reminder message</li>
+          <li>Add contact, change contact, edit contact, set contact</li>
+          <li>Change description, set description, edit description</li>
+          <li>Change ringtone, set ringtone, edit ringtone</li>
+          <li>Save alarm</li>
+        </ul>
+      </li>
     </ul>
 
   </div>
@@ -188,7 +200,7 @@
     <br/>
     <button class="btn btn-default" id="btnDefaultSMS">Send</button> -->
 
-    <button class="btn btn-default" id="addAlarm" onclick="clockApp.addalarm(), clockApp.showView('clockList')">Save</button>
+    <button class="btn btn-default" id="addAlarm" onclick="clockApp.addalarm(), clockApp.showView('clockList');">Save</button>
     <button class="btn btn-default" id="cancelAlarm" onclick="clockApp.showView('clockList')">Cancel</button>
     <script>
     $("#btnDefaultSMS").click(function(){
@@ -224,8 +236,8 @@
     </div>
 
 
-    <ul data-role="listview" data-insert="true">
-        <li data-role="list-divider">Your Alarms<span type="checkbox"></span>
+    <ul data-role="listview" data-inset="true">
+        <li data-role="list-divider" onclick="clockApp.showView('addAlarmPage')">Add Alarm<span type="checkbox"></span>
       </li>
     </ul>
     <ul data-role="listview" data-insert="true" id="alarmTableBody">
