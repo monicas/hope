@@ -130,7 +130,7 @@ function speak(){
                  clockApp.addalarm();
             }
             if(result == "add alarm" || result == "set alarm")   {
-                clockApp.showView('editAlarm');
+                clockApp.showView('addAlarmPage');
                 navigator.tts.speak("What time do you want to set the alarm for?");
             } else if(result == "change time" || result == "set time") {
                 flag_time = true;

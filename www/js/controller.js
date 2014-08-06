@@ -253,14 +253,27 @@ var clockApp = (function($) {
         var alarmId = element.getAttribute("sid");
         var statusCheckbox = document.getElementById('changestatus'+alarmId);
         var alarm;
-      
+
         alarm = myList.getElement(alarmId);
         if(!alarm.status){
             console.log("it was unchecked");
             alarm.status = true;
+            window.plugin.notfication.local.add({
+                id:         alarmId,  // A unique id of the notifiction
+                date:       alarm.localnoti.date,   // This expects a date object
+                message:    "Alarm at" + alarm.time,  // The message that is displayed
+                title:      "success",  // The title of the message
+                repeat:     "secondly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
+                badge:      1,  // Displays number badge to notification
+                //sound:      String,  // A sound to be played
+               // json:       (a:9),  // Data to be passed through the notification
+                autoCancel: true, // Setting this flag and the notification is automatically canceled when the user clicks it
+                ongoing:    false, // Prevent clearing of notification (Android only)
+            });
         } else {
             console.log("it was checked");
             alarm.status = false;
+            window.plugin.notification.local.cancel(alarmId);
         }
         console.log("alarm "+alarmId+" changing its status to "+alarm.status);
         myList.updateElement(alarm.id,alarm);
